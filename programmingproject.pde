@@ -2,6 +2,8 @@
 import java.util.ArrayList;
 
 Table dataFile;
+ArrayList<String> displayData; 
+
 
 void setup() {
  dataFile = loadTable("flights2k.csv");
@@ -9,8 +11,19 @@ void setup() {
   /* read_in_the_file();
   result = default_query();
   current_query = query3; // whatever type of query is default */
+  size(400,400);
 }
 
+  void draw(){
+    background(0);
+  PFont myFont = loadFont("AmericanTypewriter-12.vlw");
+  textFont(myFont);
+  int margin = 0;
+  for (int i = 0; i < displayData.size(); i++) {
+    text(displayData.get(i), 20, 20 + margin);
+    margin += 20;
+  }
+  }
 /*void draw() {
   
   switch(current_query){
@@ -48,25 +61,27 @@ void fileReader(Table data) {
        values.add(newPoint);
      }
      
+     displayData = new ArrayList<String>();
+     
      for (int j = 0; j < values.size(); j++) {
        
-        System.out.print(values.get(j).FL_DATE + " ");
-        System.out.print(values.get(j).MKT_CARRIER + " ");
-        System.out.print(values.get(j).MKT_CARRIER_FL_NUM + " ");
-        System.out.print(values.get(j).ORIGIN + " ");
-        System.out.print(values.get(j).ORIGIN_CITY_NAME + " ");
-        System.out.print(values.get(j).ORIGIN_STATE_ABR + " ");
-        System.out.print(values.get(j).ORIGIN_WAC + " ");
-        System.out.print(values.get(j).DEST + " ");
-        System.out.print(values.get(j).DEST_CITY_NAME + " ");
-        System.out.print(values.get(j).DEST_WAC + " ");
-        System.out.print(values.get(j).CRS_DEP_TIME + " ");
-        System.out.print(values.get(j).DEP_TIME + " ");
-        System.out.print(values.get(j).CRS_ARR_TIME + " ");
-        System.out.print(values.get(j).ARR_TIME + " ");
-        System.out.print(values.get(j).CANCELLED + " ");
-        System.out.print(values.get(j).DIVERTED + " ");
-        System.out.print(values.get(j).DISTANCE + "\n");
+        displayData.add(values.get(j).FL_DATE + " "
+        + values.get(j).MKT_CARRIER + " "
+        + values.get(j).MKT_CARRIER_FL_NUM + " "
+        + values.get(j).ORIGIN + " "
+        + values.get(j).ORIGIN_CITY_NAME + " "
+        + values.get(j).ORIGIN_STATE_ABR + " "
+        + values.get(j).ORIGIN_WAC + " "
+        + values.get(j).DEST + " "
+        + values.get(j).DEST_CITY_NAME + " "
+        + values.get(j).DEST_WAC + " "
+        + values.get(j).CRS_DEP_TIME + " "
+        + values.get(j).DEP_TIME + " "
+        + values.get(j).CRS_ARR_TIME + " "
+        + values.get(j).ARR_TIME + " "
+        + values.get(j).CANCELLED + " "
+        + values.get(j).DIVERTED + " "
+        + values.get(j).DISTANCE + "\n");
      
      }
 }
