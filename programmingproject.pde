@@ -4,24 +4,25 @@ import java.io.FileReader;
 import java.io.File;
 
 void setup() {
- /* read_in_the_file();
+ fileReader();
+  /* read_in_the_file();
   result = default_query();
   current_query = query3; // whatever type of query is default */
 }
 
-void draw() {
+/*void draw() {
   
- /* switch(current_query){
+  switch(current_query){
     case query1:
       render_query1(results);
       break;
     //case query2:
       //Etc….. 
   } 
-  render_controls(); */
+  render_controls();
 }
 
-/* void mousePressed() {
+ void mousePressed() {
   switch(event)
     case button 1:
       current_query = query1;
@@ -56,16 +57,18 @@ ArrayList<String> readData(BufferedReader bufferedReader) {
       
       return flightData;
 }
+
 void fileReader() {
-  File file = new File ("flights2k.csv");
+  File dataFile = new File ("flights2k.csv");
       ArrayList<String> flightList = null;
-  try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file))) {
+  try (BufferedReader bufferedReader = new BufferedReader(new FileReader(dataFile))) {
         flightList = readData(bufferedReader);
   }
   catch (IOException e) {
         e.printStackTrace();
   }
   
+  for (int i = 0; i < flightList.size(); i++) {
+    println(flightList.get(i));
+  }
 }
-
-// test
