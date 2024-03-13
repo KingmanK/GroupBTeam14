@@ -1,3 +1,5 @@
+// Group B Team 14 - Programming Project
+
 void setup() {
   read_in_the_file();
   result = default_query();
