@@ -47,4 +47,26 @@ void fileReader(Table data) {
        newPoint = new DataPoint(data.getRow(i));
        values.add(newPoint);
      }
+     
+     for (int j = 0; j < values.size(); j++) {
+       
+        System.out.print(values.get(j).FL_DATE + " ");
+        System.out.print(values.get(j).MKT_CARRIER + " ");
+        System.out.print(values.get(j).MKT_CARRIER_FL_NUM + " ");
+        System.out.print(values.get(j).ORIGIN + " ");
+        System.out.print(values.get(j).ORIGIN_CITY_NAME + " ");
+        System.out.print(values.get(j).ORIGIN_STATE_ABR + " ");
+        System.out.print(values.get(j).ORIGIN_WAC + " ");
+        System.out.print(values.get(j).DEST + " ");
+        System.out.print(values.get(j).DEST_CITY_NAME + " ");
+        System.out.print(values.get(j).DEST_WAC + " ");
+        System.out.print(values.get(j).CRS_DEP_TIME + " ");
+        System.out.print(values.get(j).DEP_TIME + " ");
+        System.out.print(values.get(j).CRS_ARR_TIME + " ");
+        System.out.print(values.get(j).ARR_TIME + " ");
+        System.out.print(values.get(j).CANCELLED + " ");
+        System.out.print(values.get(j).DIVERTED + " ");
+        System.out.print(values.get(j).DISTANCE + "\n");
+     
+     }
 }

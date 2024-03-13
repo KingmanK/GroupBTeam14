@@ -18,7 +18,6 @@ class DataPoint{
   String CANCELLED;
   String DIVERTED;
   String DISTANCE;
- 
   
   DataPoint(TableRow row){
     FL_DATE = row.getString(0);
