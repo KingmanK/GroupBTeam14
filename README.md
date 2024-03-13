@@ -1,3 +1,3 @@
 # GroupBTeam14
-Adam Nedic  \n
-Kai Kingman
+Adam Nedic<br />
+Kai Kingman<br />
