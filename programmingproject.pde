@@ -1,4 +1,5 @@
 // Group B Team 14 - Programming Project
+import java.util.ArrayList;
 
 Table dataFile;
 
@@ -38,11 +39,12 @@ void fileReader(Table data) {
       
       int columns = data.getColumnCount();
       int rows = data.getRowCount();
+      DataPoint newPoint;
+      
+      ArrayList<DataPoint> values = new ArrayList<DataPoint>();
   
-  for (int i = 0; i < rows; i++) {
-      System.out.println("");
-    for (int j = 0; j < columns; j++) {
-      System.out.print(data.getString(i, j) + " ");  
-    }
-  }
+     for (int i = 0; i < rows; i++) {
+       newPoint = new DataPoint(data.getRow(i));
+       values.add(newPoint);
+     }
 }
