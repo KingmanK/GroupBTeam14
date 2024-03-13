@@ -2,8 +2,8 @@
 • Call a method in setup which reads in the data. - Adam Nedic | DONE
 • Initially just use println() to verify each line is being read in properly. - Kai Kingman | DONE
 • Create a class to store the datapoints – each instance storing the data from one line of
-the file. - Edmund Akinfaye
-• Create a data structure (e.g. ArrayList) which stores multiple instances of this class. - Kai Kingman
+the file. - Edmund Akinfaye and Kai Kingman
+• Create a data structure (e.g. ArrayList) which stores multiple instances of this class. - Edmund Akinfaye and Kai Kingman
 • Create a loop which prints out all of the instances using println() - Louis O'Driscoll
 • Print out the instances on the screen in a nice font using text(). - Sergiu Manea
 • Sketch - Louis Ye
