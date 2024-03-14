@@ -11,7 +11,7 @@ void setup() {
   /* read_in_the_file();
   result = default_query();
   current_query = query3; // whatever type of query is default */
-  size(400,400);
+  size(800,400);
 }
 
   void draw(){
