@@ -21,6 +21,7 @@ void setup() {
   int margin = 0;
   for (int i = 0; i < displayData.size(); i++) {
     text(displayData.get(i), 20, 20 + margin);
+    println(displayData.get(i));
     margin += 20;
   }
   }
