@@ -9,7 +9,7 @@ final int EVENT_BUTTON1=1; final int EVENT_FORWARD=2;
 final int EVENT_BUTTON2=3; final int EVENT_BACKWARD=4;
 final int EVENT_NULL=0;
 Screen currentScreen, screen1, screen2;
-
+barChart barChart;
 void setup() {
  dataFile = loadTable("flights2k.csv");
  fileReader(dataFile);
@@ -23,6 +23,8 @@ void setup() {
  //textFont(stdFont);
  PFont myFont = loadFont("AmericanTypewriter-12.vlw");
  textFont(myFont);
+ 
+ barChart barChart = new barChart();
  
  widget1=new Widget(100, 100, 180, 40,
  "Button 1", color(200, 0, 0), stdFont, EVENT_BUTTON1);
@@ -78,6 +80,9 @@ void mousePressed(){
  break;
  case EVENT_FORWARD:
  println("forward"); currentScreen = screen2;
+ if (barChart != null) {
+   barChart.barChartInitialise();
+ }
  break;
  case EVENT_BACKWARD:
  println("backward"); currentScreen = screen1;
