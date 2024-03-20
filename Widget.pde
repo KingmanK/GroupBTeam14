@@ -1,4 +1,5 @@
   class Widget {
+    
    int x, y, width, height; String label; int event;
    color widgetColor, labelColor, lineColor; PFont widgetFont;
    Widget(int x,int y, int width, int height, String label,
@@ -7,26 +8,35 @@
    } void draw(){
    fill(widgetColor); stroke(lineColor); rect(x,y,width,height);
    fill(labelColor); text(label, x+10, y+height-10);
+   
    }
    void mouseMoved(){
      int event;
      ArrayList widgetList = currentScreen.getWidgets();
      for(int i = 0; i<widgetList.size(); i++){
-     Widget aWidget = (Widget) widgetList.get(i);
-     event = aWidget.getEvent(mouseX,mouseY);
+       Widget aWidget = (Widget) widgetList.get(i);
+       event = aWidget.getEvent(mouseX,mouseY);
      if(event != EVENT_NULL){
-     aWidget.mouseOver();
+       aWidget.mouseOver();
      }
-     else
-     aWidget.mouseNotOver();
+     else {
+       aWidget.mouseNotOver();
      }
+       aWidget.draw();
+     }
+     
    }
    
    void mouseOver() {
     lineColor = color(255);
    }
    void mouseNotOver() {
-    lineColor = color(0); }
-   int getEvent(int mX, int mY){ if(mX>x && mX < x+width && mY >y && mY <y+height){ return event;
-   } return EVENT_NULL; }
+    lineColor = color(0); 
+  }
+    
+   int getEvent(int mX, int mY){ if(mX>x && mX < x+width && mY >y && mY <y+height){
+     return event;
+   } 
+   return EVENT_NULL; 
+ }
   }

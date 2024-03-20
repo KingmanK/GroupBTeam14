@@ -31,7 +31,7 @@ void setup() {
  widgetList.add(widget1);
  widgetList.add(widget2);
 
- screen1 = new Screen(color(255));
+ screen1 = new Screen(color(0));
  screen2 = new Screen(color(150));
  screen1.add(widget1);
  screen1.add(widget2);
@@ -47,7 +47,7 @@ void setup() {
   int margin = 0;
   for (int i = 0; i < displayData.size(); i++) {
     text(displayData.get(i), 20, 20 + margin);
-    println(displayData.get(i));
+    //println(displayData.get(i));
     margin += 20;
   }
   
@@ -57,6 +57,7 @@ void setup() {
   aWidget.draw();
   currentScreen.draw();
   }
+ 
   }
  
 
@@ -76,7 +77,9 @@ void mousePressed(){
  break;
  }
 }
-
+void mouseMoved(){
+  currentScreen.mouseMoved();
+}
 void fileReader(Table data) {
       
       int columns = data.getColumnCount();
