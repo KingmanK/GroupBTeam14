@@ -1,6 +1,17 @@
 class barChart {
-  
-int[] data = {30, 75, 50, 110, 90};
+  ArrayList<DataPoint> dataPoints;
+  int[] data;
+
+  // Modify the constructor to accept an ArrayList<DataPoint>
+  barChart (ArrayList<DataPoint> dataPoints) {
+    this.dataPoints = dataPoints;
+    // Initialize the data array with the size of dataPoints
+    this.data = new int[dataPoints.size()];
+    // Fill the data array with the distance from each DataPoint
+    for (int i = 0; i < dataPoints.size(); i++) {
+      this.data[i] = dataPoints.get(i).distance; // Assuming DataPoint has a distance field
+    }
+  }
 
 void barChartInitialise() {
   int numBars = data.length;

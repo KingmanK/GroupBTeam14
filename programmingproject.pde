@@ -13,18 +13,16 @@ barChart barChart;
 void setup() {
  dataFile = loadTable("flights2k.csv");
  fileReader(dataFile);
-  /* read_in_the_file();
-  result = default_query();
-  current_query = query3; // whatever type of query is default */
+
   size(800,400);
   
   Widget widget1, widget2, widget3, widget4;
- //stdFont=loadFont("Georgia");
- //textFont(stdFont);
+
  PFont myFont = loadFont("AmericanTypewriter-12.vlw");
  textFont(myFont);
  
- barChart barChart = new barChart();
+ ArrayList<DataPoint> values = new ArrayList<DataPoint>();
+ barChart barChart = new barChart(values);
  
  widget1=new Widget(100, 100, 180, 40,
  "Button 1", color(200, 0, 0), stdFont, EVENT_BUTTON1);
@@ -37,7 +35,6 @@ void setup() {
  size(400, 400);
  widgetList.add(widget1);
  widgetList.add(widget2);
-// Add other widgets as needed
 
  screen1 = new Screen(color(255));
  screen2 = new Screen(color(150));
@@ -50,7 +47,6 @@ void setup() {
 
   void draw(){
     background(0);
-  //PFont myFont = loadFont("AmericanTypewriter-12.vlw");
   PFont myFont = loadFont("AmericanTypewriter-12.vlw");
   textFont(myFont);
   int margin = 0;
@@ -67,8 +63,6 @@ void setup() {
   currentScreen.draw();
   }
   }
-  /////////////////////////
- 
 
 void mousePressed(){
  switch(currentScreen.getEvent(mouseX, mouseY)) {
@@ -90,32 +84,6 @@ void mousePressed(){
  }
 }
   
-  
-  
-  /////////////////////////
-/*void draw() {
-  
-  switch(current_query){
-    case query1:
-      render_query1(results);
-      break;
-    //case query2:
-      //Etc….. 
-  } 
-  render_controls();
-}
-
- void mousePressed() {
-  switch(event)
-    case button 1:
-      current_query = query1;
-      results=query1();
-      break;
-    case button 2:
-      current_query = query2;
-      results=query2();
-    Etc.
-} */
 
 void fileReader(Table data) {
       
