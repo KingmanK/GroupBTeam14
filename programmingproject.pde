@@ -13,14 +13,9 @@ Screen currentScreen, screen1, screen2;
 void setup() {
  dataFile = loadTable("flights2k.csv");
  fileReader(dataFile);
-  /* read_in_the_file();
-  result = default_query();
-  current_query = query3; // whatever type of query is default */
   size(800,400);
   
   Widget widget1, widget2, widget3, widget4;
- //stdFont=loadFont("Georgia");
- //textFont(stdFont);
  PFont myFont = loadFont("AmericanTypewriter-12.vlw");
  textFont(myFont);
  
@@ -35,7 +30,6 @@ void setup() {
  size(400, 400);
  widgetList.add(widget1);
  widgetList.add(widget2);
-// Add other widgets as needed
 
  screen1 = new Screen(color(255));
  screen2 = new Screen(color(150));
@@ -48,7 +42,6 @@ void setup() {
 
   void draw(){
     background(0);
-  //PFont myFont = loadFont("AmericanTypewriter-12.vlw");
   PFont myFont = loadFont("AmericanTypewriter-12.vlw");
   textFont(myFont);
   int margin = 0;
@@ -65,7 +58,6 @@ void setup() {
   currentScreen.draw();
   }
   }
-  /////////////////////////
  
 
 void mousePressed(){
