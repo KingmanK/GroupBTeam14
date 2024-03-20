@@ -9,6 +9,7 @@ the file. - Edmund Akinfaye | DONE
 • Print out the instances on the screen in a nice font using text(). - Sergiu Manea | DONE
 • Sketch - Louis Ye and Adam Nedic | DONE
  - WEEK  2 -  
+• implement a "screen" and "widget" class into the main to allow for switching between 2 screens - Adam and Eddy | DONE
 • sketch out some designs on paper with your group and bring to thelab to discuss with your demonstrator. - Sergiu, Louis Ye, Louis O'Driscoll | DONE
 • read in the csv file and store the data (in setup), as for last week. - 
 • create a (simple) query result and set this to be the current query (in setup) -
