@@ -13,14 +13,9 @@ Screen currentScreen, screen1, screen2;
 void setup() {
  dataFile = loadTable("flights2k.csv");
  fileReader(dataFile);
-  /* read_in_the_file();
-  result = default_query();
-  current_query = query3; // whatever type of query is default */
   size(800,400);
   
   Widget widget1, widget2, widget3, widget4;
- //stdFont=loadFont("Georgia");
- //textFont(stdFont);
  PFont myFont = loadFont("AmericanTypewriter-12.vlw");
  textFont(myFont);
  
@@ -35,9 +30,8 @@ void setup() {
  size(400, 400);
  widgetList.add(widget1);
  widgetList.add(widget2);
-// Add other widgets as needed
 
- screen1 = new Screen(color(255));
+ screen1 = new Screen(color(0));
  screen2 = new Screen(color(150));
  screen1.add(widget1);
  screen1.add(widget2);
@@ -48,13 +42,12 @@ void setup() {
 
   void draw(){
     background(0);
-  //PFont myFont = loadFont("AmericanTypewriter-12.vlw");
   PFont myFont = loadFont("AmericanTypewriter-12.vlw");
   textFont(myFont);
   int margin = 0;
   for (int i = 0; i < displayData.size(); i++) {
     text(displayData.get(i), 20, 20 + margin);
-    println(displayData.get(i));
+    //println(displayData.get(i));
     margin += 20;
   }
   
@@ -64,8 +57,8 @@ void setup() {
   aWidget.draw();
   currentScreen.draw();
   }
+ 
   }
-  /////////////////////////
  
 
 void mousePressed(){
@@ -84,34 +77,9 @@ void mousePressed(){
  break;
  }
 }
-  
-  
-  
-  /////////////////////////
-/*void draw() {
-  
-  switch(current_query){
-    case query1:
-      render_query1(results);
-      break;
-    //case query2:
-      //Etc….. 
-  } 
-  render_controls();
+void mouseMoved(){
+  currentScreen.mouseMoved();
 }
-
- void mousePressed() {
-  switch(event)
-    case button 1:
-      current_query = query1;
-      results=query1();
-      break;
-    case button 2:
-      current_query = query2;
-      results=query2();
-    Etc.
-} */
-
 void fileReader(Table data) {
       
       int columns = data.getColumnCount();
