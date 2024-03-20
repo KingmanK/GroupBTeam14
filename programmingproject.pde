@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 Table dataFile;
 ArrayList<String> displayData; 
-
+Screen screen;
 
 void setup() {
  dataFile = loadTable("flights2k.csv");
@@ -12,6 +12,7 @@ void setup() {
   result = default_query();
   current_query = query3; // whatever type of query is default */
   size(800,400);
+  Screen currentScreen = new Screen();
 }
 
   void draw(){
@@ -23,6 +24,9 @@ void setup() {
     text(displayData.get(i), 20, 20 + margin);
     println(displayData.get(i));
     margin += 20;
+    
+    screen.setup();
+    screen.draw();
   }
   }
 /*void draw() {
