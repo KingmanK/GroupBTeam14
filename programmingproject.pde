@@ -2,6 +2,8 @@
 import java.util.ArrayList;
 
 Table dataFile;
+pieChart PieChart;
+int total;
 ArrayList<String> displayData; 
 ArrayList<Widget> widgetList = new ArrayList<Widget>();
 PFont stdFont;
@@ -13,7 +15,7 @@ Screen currentScreen, screen1, screen2;
 void setup() {
  dataFile = loadTable("flights2k.csv");
  fileReader(dataFile);
-  size(800,400);
+ size(800,400);
   
   Widget widget1, widget2, widget3, widget4;
  PFont myFont = loadFont("AmericanTypewriter-12.vlw");
@@ -22,26 +24,36 @@ void setup() {
  widget1=new Widget(100, 100, 180, 40,
  "Button 1", color(200, 0, 0), stdFont, EVENT_BUTTON1);
  widget2=new Widget(100, 200, 180, 40,
- "Forward", color(0, 200, 0), stdFont, EVENT_FORWARD);
+ "Flights status", color(0, 200, 0), stdFont, EVENT_FORWARD);
  widget3=new Widget(100, 100, 180, 40,
  "Button 2", color(0,0,200), stdFont, EVENT_BUTTON2);
  widget4=new Widget(100, 200, 180, 40,
  "Backward", color(0,200,200), stdFont, EVENT_BACKWARD);
- size(400, 400);
+ //size(400, 400);
  widgetList.add(widget1);
  widgetList.add(widget2);
 
+<<<<<<< Updated upstream
  screen1 = new Screen(color(0));
+=======
+ screen1 = new Screen(color(70));
+>>>>>>> Stashed changes
  screen2 = new Screen(color(150));
  screen1.add(widget1);
  screen1.add(widget2);
  screen2.add(widget3);
  screen2.add(widget4);
  currentScreen = screen1;
+ 
+ PieChart = new pieChart();
+ total = dataFile.getRowCount();
+ noStroke();
+ PieChart.getData();
 }
 
   void draw(){
     background(0);
+<<<<<<< Updated upstream
   PFont myFont = loadFont("AmericanTypewriter-12.vlw");
   textFont(myFont);
   int margin = 0;
@@ -58,6 +70,22 @@ void setup() {
   currentScreen.draw();
   }
  
+=======
+    PFont myFont = loadFont("AmericanTypewriter-12.vlw");
+    textFont(myFont);
+    int margin = 0;
+    for (int i = 0; i < displayData.size(); i++) {
+      text(displayData.get(i), 20, 20 + margin);
+      println(displayData.get(i));
+      margin += 20;
+    }
+  
+    currentScreen.draw();
+    
+    if (currentScreen == screen2){
+      PieChart.draw();
+    }
+>>>>>>> Stashed changes
   }
  
 
@@ -70,7 +98,7 @@ void mousePressed(){
  println("button 2!");
  break;
  case EVENT_FORWARD:
- println("forward"); currentScreen = screen2;
+ println("Flights status"); currentScreen = screen2;
  break;
  case EVENT_BACKWARD:
  println("backward"); currentScreen = screen1;

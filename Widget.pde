@@ -5,7 +5,8 @@
    Widget(int x,int y, int width, int height, String label,
    color widgetColor, PFont widgetFont, int event){ this.x=x; this.y=y; this.width = width; this.height= height; this.label=label; this.event=event;
    this.widgetColor=widgetColor; this.widgetFont=widgetFont; labelColor= color(0); lineColor= color(0);
-   } void draw(){
+   }
+   void draw(){
    fill(widgetColor); stroke(lineColor); rect(x,y,width,height);
    fill(labelColor); text(label, x+10, y+height-10);
    
