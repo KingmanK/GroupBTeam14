@@ -13,7 +13,7 @@ the file. - Edmund Akinfaye | DONE
 • sketch out some designs on paper with your group and bring to thelab to discuss with your demonstrator. - Sergiu, Louis Ye, Louis O'Driscoll | DONE
 • read in the csv file and store the data (in setup), as for last week. - 
 • create a (simple) query result and set this to be the current query (in setup) -
-• write a method which will draw this query result as a chart (e.g. bar chart). - 
+• write a method which will draw this query result as a chart (e.g. pie chart). - 
 • draw the results of this query as a bar chart (in draw), using the method you have defined. - Louis O'Driscoll
 
 

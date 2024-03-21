@@ -5,7 +5,7 @@ class pieChart {
   double[] angles = new double[3];
   
   void draw() {
-    PFont pieFont = loadFont("BookAntiqua-20.vlw");
+    PFont pieFont = loadFont("AmericanTypewriter-12.vlw");
     textFont(pieFont);
     calculateAngles();
     pie_chart(150, angles);
@@ -42,6 +42,7 @@ class pieChart {
     for (int i = 0; i < data.length; i++) {
       float gray = map(i, 0, data.length, 0, 255);
       fill(gray);
+      noStroke();
       arc(580, 300-diameter, diameter, diameter, lastAngle, lastAngle+radians((float)data[i]));
       lastAngle += radians((float)data[i]);
     }

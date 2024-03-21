@@ -33,11 +33,7 @@ void setup() {
  widgetList.add(widget1);
  widgetList.add(widget2);
 
-<<<<<<< Updated upstream
- screen1 = new Screen(color(0));
-=======
  screen1 = new Screen(color(70));
->>>>>>> Stashed changes
  screen2 = new Screen(color(150));
  screen1.add(widget1);
  screen1.add(widget2);
@@ -53,24 +49,6 @@ void setup() {
 
   void draw(){
     background(0);
-<<<<<<< Updated upstream
-  PFont myFont = loadFont("AmericanTypewriter-12.vlw");
-  textFont(myFont);
-  int margin = 0;
-  for (int i = 0; i < displayData.size(); i++) {
-    text(displayData.get(i), 20, 20 + margin);
-    //println(displayData.get(i));
-    margin += 20;
-  }
-  
-  
-    for(int i = 0; i<widgetList.size(); i++){
-  Widget aWidget = (Widget) widgetList.get(i);
-  aWidget.draw();
-  currentScreen.draw();
-  }
- 
-=======
     PFont myFont = loadFont("AmericanTypewriter-12.vlw");
     textFont(myFont);
     int margin = 0;
@@ -85,7 +63,6 @@ void setup() {
     if (currentScreen == screen2){
       PieChart.draw();
     }
->>>>>>> Stashed changes
   }
  
 
