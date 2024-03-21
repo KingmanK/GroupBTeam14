@@ -8,10 +8,44 @@ ArrayList<String> displayData;
 void setup() {
  dataFile = loadTable("flights2k.csv");
  fileReader(dataFile);
+<<<<<<< Updated upstream
   /* read_in_the_file();
   result = default_query();
   current_query = query3; // whatever type of query is default */
   size(800,400);
+=======
+ size(800,400);
+  
+  Widget widget1, widget2, widget3, widget4;
+ PFont myFont = loadFont("AmericanTypewriter-12.vlw");
+ textFont(myFont);
+ 
+ widget1=new Widget(100, 100, 180, 40,
+ "Button 1", color(200, 0, 0), stdFont, EVENT_BUTTON1);
+ widget2=new Widget(100, 200, 180, 40,
+ "Flights status", color(0, 200, 0), stdFont, EVENT_FORWARD);
+ widget3=new Widget(100, 100, 180, 40,
+ "Button 2", color(0,0,200), stdFont, EVENT_BUTTON2);
+ widget4=new Widget(100, 200, 180, 40,
+ "Backward", color(0,200,200), stdFont, EVENT_BACKWARD);
+ //size(400, 400);
+ widgetList.add(widget1);
+ widgetList.add(widget2);
+
+ screen1 = new Screen(color(70));
+ screen2 = new Screen(color(150));
+ screen1.add(widget1);
+ screen1.add(widget2);
+ screen2.add(widget3);
+ screen2.add(widget4);
+ currentScreen = screen1;
+ 
+ PieChart = new pieChart();
+ total = dataFile.getRowCount();
+ //noStroke();
+ stroke(0);
+ PieChart.getData();
+>>>>>>> Stashed changes
 }
 
   void draw(){
@@ -25,6 +59,7 @@ void setup() {
     margin += 20;
   }
   }
+<<<<<<< Updated upstream
 /*void draw() {
   
   switch(current_query){
@@ -48,6 +83,25 @@ void setup() {
       results=query2();
     Etc.
 } */
+=======
+ 
+    //fPFont myFont = loadFont("AmericanTypewriter-12.vlw");
+    textFont(myFont);
+    //int margin = 0;
+    for (int i = 0; i < displayData.size(); i++) {
+      text(displayData.get(i), 20, 20 + margin);
+      println(displayData.get(i));
+      margin += 20;
+    }
+  
+    currentScreen.draw();
+    
+    if (currentScreen == screen2){
+      PieChart.draw();
+    }
+  }
+ 
+>>>>>>> Stashed changes
 
 void fileReader(Table data) {
       
