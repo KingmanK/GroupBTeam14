@@ -11,9 +11,9 @@ the file. - Edmund Akinfaye | DONE
  - WEEK  2 -  
 • implement a "screen" and "widget" class into the main to allow for switching between 2 screens - Adam and Eddy | DONE
 • sketch out some designs on paper with your group and bring to thelab to discuss with your demonstrator. - Sergiu, Louis Ye, Louis O'Driscoll | DONE
-• read in the csv file and store the data (in setup), as for last week. - 
-• create a (simple) query result and set this to be the current query (in setup) -
-• write a method which will draw this query result as a chart (e.g. pie chart). - 
-• draw the results of this query as a bar chart (in draw), using the method you have defined. - Louis O'Driscoll
+• read in the csv file and store the data (in setup), as for last week. - (done last week)
+• create a (simple) query result and set this to be the current query (in setup) - Kai and Eddy | DONE
+• write a method which will draw this query result as a chart (e.g. pie chart). - Adam and Eddy | DONE
+• draw the results of this query as a bar chart (in draw), using the method you have defined. - Louis O'Driscoll | DONE
 
 
