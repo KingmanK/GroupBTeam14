@@ -16,7 +16,7 @@ the file. - Edmund Akinfaye | DONE
 • write a method which will draw this query result as a chart (e.g. pie chart). - Adam and Eddy | DONE
 • draw the results of this query as a bar chart (in draw), using the method you have defined. - Louis O'Driscoll | DONE
 - WEEK 3 -
-• Implement two different queries on the data.
+• Implement two different queries (busiest routes & selecting a data range) on the data.
 • Implement a selection mechanism to invoke the different queries.
 • Draw the results of the queries on the screen.
 
