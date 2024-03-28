@@ -1,6 +1,6 @@
 // Group B Team 14 - Programming Project
 import java.util.ArrayList;
-PImage img;
+
 Table dataFile;
 pieChart PieChart;
 int total;
@@ -15,30 +15,25 @@ Screen currentScreen, screen1, screen2;
 void setup() {
  dataFile = loadTable("flights2k.csv");
  fileReader(dataFile);
- size(1280,720);
- img = loadImage("backarrow.jpg");
+ size(800,400);
   
- Widget widget1, widget2, widget3, widget4;
- PFont myFont = loadFont("Calibri-Bold-30.vlw");
+  Widget widget1, widget2, widget3, widget4;
+ PFont myFont = loadFont("AmericanTypewriter-12.vlw");
  textFont(myFont);
  
- widget1=new Widget(100, 0, 180, 40,
+ widget1=new Widget(100, 100, 180, 40,
  "Button 1", color(200, 0, 0), stdFont, EVENT_BUTTON1);
- widget2=new Widget(340, 0, 180, 40,
+ widget2=new Widget(100, 200, 180, 40,
  "Flights status", color(0, 200, 0), stdFont, EVENT_FORWARD);
- widget3=new Widget(100, 0, 180, 40,
+ widget3=new Widget(100, 100, 180, 40,
  "Button 2", color(0,0,200), stdFont, EVENT_BUTTON2);
- widget4=new Widget(0, 0, 53, 27,
- "<---", color(0,200,200), stdFont, EVENT_BACKWARD);
+ widget4=new Widget(100, 200, 180, 40,
+ "Backward", color(0,200,200), stdFont, EVENT_BACKWARD);
  //size(400, 400);
  widgetList.add(widget1);
  widgetList.add(widget2);
 
-<<<<<<< Updated upstream
- screen1 = new Screen(color(0));
-=======
  screen1 = new Screen(color(70));
->>>>>>> Stashed changes
  screen2 = new Screen(color(150));
  screen1.add(widget1);
  screen1.add(widget2);
@@ -49,36 +44,13 @@ void setup() {
  PieChart = new pieChart();
  total = dataFile.getRowCount();
  noStroke();
- PieChart.setup();
- PieChart.draw();
  PieChart.getData();
 }
 
   void draw(){
     background(0);
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-  PFont myFont = loadFont("AmericanTypewriter-12.vlw");
-  textFont(myFont);
-  int margin = 0;
-  for (int i = 0; i < displayData.size(); i++) {
-    text(displayData.get(i), 20, 20 + margin);
-    //println(displayData.get(i));
-    margin += 20;
-  }
-  
-  
-    for(int i = 0; i<widgetList.size(); i++){
-  Widget aWidget = (Widget) widgetList.get(i);
-  aWidget.draw();
-  currentScreen.draw();
-  }
- 
-=======
     PFont myFont = loadFont("AmericanTypewriter-12.vlw");
     textFont(myFont);
-=======
->>>>>>> Stashed changes
     int margin = 0;
     for (int i = 0; i < displayData.size(); i++) {
       text(displayData.get(i), 20, 20 + margin);
@@ -90,9 +62,7 @@ void setup() {
     
     if (currentScreen == screen2){
       PieChart.draw();
-      image(img, 0, 0);
     }
->>>>>>> Stashed changes
   }
  
 
@@ -114,9 +84,6 @@ void mousePressed(){
 }
 void mouseMoved(){
   currentScreen.mouseMoved();
-  if (currentScreen == screen2){
-    image(img, 0, 0);
-  }
 }
 void fileReader(Table data) {
       
