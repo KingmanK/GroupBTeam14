@@ -150,20 +150,25 @@ void fileReader(Table data) {
 DataPoint findLongestDelay(ArrayList<DataPoint> flights) {
   DataPoint longestDelayFlight = null;
   int longestDelay = -400;
-
+  
   for (DataPoint flight : flights) {
-    
-    int depDelay = Integer.parseInt(flight.DEP_TIME) -  Integer.parseInt(flight.CRS_DEP_TIME);
-    int arrDelay = Integer.parseInt(flight.ARR_TIME) -  Integer.parseInt(flight.CRS_ARR_TIME);
-    int totalDelay = depDelay + arrDelay;
-
-    if (totalDelay > longestDelay) {
-      longestDelay = totalDelay;
-      longestDelayFlight = flight;
+    System.out.println("DEP_TIME: " + flight.DEP_TIME + ", CRS_DEP_TIME: " + flight.CRS_DEP_TIME); // Debug statement
+    try {
+      int depDelay = Integer.parseInt(flight.DEP_TIME) - Integer.parseInt(flight.CRS_DEP_TIME);
+      int arrDelay = Integer.parseInt(flight.ARR_TIME) - Integer.parseInt(flight.CRS_ARR_TIME);
+      int totalDelay = depDelay + arrDelay;
+      
+      if (totalDelay > longestDelay) {
+        longestDelay = totalDelay;
+        longestDelayFlight = flight;
+      }
+    } catch (NumberFormatException e) {
+      println("NumberFormatException occurred: " + e.getMessage()); // Debug statement
     }
   }
   return longestDelayFlight;
 }
+
 void keyPressed() {
   if (keyCode == ENTER) {
     println(TB.Text);
@@ -174,10 +179,10 @@ void keyPressed() {
       DataPoint longestDelay = findLongestDelay(values);
       if (longestDelay != null) {
         println("Date : " + longestDelay.FL_DATE);
-        println("Carrier : " + longestDelay.FL_DATE);
-        println("Flight No. : " + longestDelay.FL_DATE);
-        println("Origin : " + longestDelay.FL_DATE);
-        println("Destination : " + longestDelay.FL_DATE);
+        println("Carrier : " + longestDelay.MKT_CARRIER);
+        println("Flight No. : " + longestDelay.MKT_CARRIER_FL_NUM);
+        println("Origin : " + longestDelay.ORIGIN);
+        println("Destination : " + longestDelay.DEST);
         int departureDelay = Integer.parseInt(longestDelay.DEP_TIME) - Integer.parseInt(longestDelay.CRS_DEP_TIME);
         int arrivalDelay = Integer.parseInt(longestDelay.ARR_TIME) - Integer.parseInt(longestDelay.CRS_ARR_TIME);
         int totalDelay = departureDelay - arrivalDelay;
