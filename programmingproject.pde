@@ -1,5 +1,9 @@
 // Group B Team 14 - Programming Project
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.*;
+import java.util.Set;
 
 Table dataFile;
 pieChart PieChart;
@@ -77,7 +81,8 @@ void setup() {
    }*/
    
    TB.DRAW();
-
+   
+   busiestRoutes();
   }
   
 
@@ -153,8 +158,7 @@ void keyPressed() {
     
     // LOGIC FOR SEARCHING STUFF IN THE SEARCH BAR SHOULD GO HERE
     for (int j = 0; j < values.size(); j++) {  
-      //ArrayList<Widget> airportNames = new ArrayList<Widget>();
-      //print(displayData);
+      
       for (int count = 0; count < values.size(); count++) {
         for (String element : displayData) {
           if (element.contains(TB.Text)) {
@@ -165,4 +169,48 @@ void keyPressed() {
     }
   }
   TB.KeyPressed(key, keyCode);
+}
+
+void busiestRoutes() {
+    String[] destCityArr = new String[values.size()];
+      for (int count = 0; count < values.size(); count++) {
+            //fill(255);
+            //text(values.get(count).DEST_CITY_NAME, 10, 10*count);
+            destCityArr[count] = values.get(count).DEST_CITY_NAME;
+      }
+      String maxStr = " ";
+      int maxValue = 0;
+      Map<String,Integer> frequency = new HashMap<String, Integer>();
+      for (String freq: destCityArr) {
+        if (frequency.keySet().contains(freq)) {
+          frequency.put(freq, frequency.get(freq) + 1); 
+        }
+        else {
+          frequency.put(freq, 1);
+        }
+        maxStr = "";
+        maxValue = 0;
+        for (Map.Entry<String,Integer> entry : frequency.entrySet()) {
+          String key = entry.getKey();
+          Integer count = entry.getValue();
+          if ( count > maxValue ) { 
+            maxValue = count;
+            maxStr = key;
+          }
+          else if (count == maxValue){ 
+          if (key.length() < maxStr.length()) {
+            maxStr = key; 
+          }
+      }
+        }
+        
+        
+        
+      } 
+      /*String maxStrArr[] = maxStr.split(" ");
+      for (int count2 =0 ; count2 < maxStrArr.length; count2++) {
+          text("Busiest Destination: " + maxStrArr[count2], 400, 10+11*count2);
+      }*/
+      text("Busiest Destination: " + maxStr, 400, 10+11);
+      text("Amount of flights: " + maxValue, 400, 10+11*maxStr.length());
 }
