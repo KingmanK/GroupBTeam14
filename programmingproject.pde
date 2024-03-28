@@ -40,6 +40,7 @@ void setup() {
 
   screen1 = new Screen(color(70));
   screen2 = new Screen(color(150));
+  
   screen1.add(widget1);
   screen1.add(widget2);
   screen2.add(widget3);
@@ -152,10 +153,10 @@ DataPoint findLongestDelay(ArrayList<DataPoint> flights) {
   int longestDelay = -400;
   
   for (DataPoint flight : flights) {
-    System.out.println("DEP_TIME: " + flight.DEP_TIME + ", CRS_DEP_TIME: " + flight.CRS_DEP_TIME); // Debug statement
+    System.out.println("DEP_TIME: " + flight.DEP_TIME + ", CRS_DEP_TIME: " + flight.CRS_DEP_TIME); 
     try {
-      int depDelay = Integer.parseInt(flight.DEP_TIME) - Integer.parseInt(flight.CRS_DEP_TIME);
-      int arrDelay = Integer.parseInt(flight.ARR_TIME) - Integer.parseInt(flight.CRS_ARR_TIME);
+      int depDelay = Integer.parseInt(flight.CRS_DEP_TIME) - Integer.parseInt(flight.DEP_TIME);
+      int arrDelay = Integer.parseInt(flight.CRS_ARR_TIME) - Integer.parseInt(flight.ARR_TIME);
       int totalDelay = depDelay + arrDelay;
       
       if (totalDelay > longestDelay) {
@@ -163,7 +164,7 @@ DataPoint findLongestDelay(ArrayList<DataPoint> flights) {
         longestDelayFlight = flight;
       }
     } catch (NumberFormatException e) {
-      println("NumberFormatException occurred: " + e.getMessage()); // Debug statement
+      println("NumberFormatException occurred: " + e.getMessage()); 
     }
   }
   return longestDelayFlight;
@@ -178,7 +179,8 @@ void keyPressed() {
     if (TB.Text.equals("Longest Delay")) {
       DataPoint longestDelay = findLongestDelay(values);
       if (longestDelay != null) {
-        println("Date : " + longestDelay.FL_DATE);
+        if (currentScreen == screen1) {
+        text("Date : " + longestDelay.FL_DATE, 100, 400);
         println("Carrier : " + longestDelay.MKT_CARRIER);
         println("Flight No. : " + longestDelay.MKT_CARRIER_FL_NUM);
         println("Origin : " + longestDelay.ORIGIN);
@@ -188,6 +190,7 @@ void keyPressed() {
         int totalDelay = departureDelay - arrivalDelay;
         println(" Overall delay : " + totalDelay);
       }
+    }
     }
 
     for (int j = 0; j < values.size(); j++) {
