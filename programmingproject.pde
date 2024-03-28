@@ -24,7 +24,7 @@ void setup() {
  fileReader(dataFile);
  size(1280, 720);
  Widget widget1, widget2, widget3, widget4;
- PFont myFont = loadFont("GeorgiaPro-Semibold-50.vlw");
+ PFont myFont = loadFont("GeorgiaPro-Semibold-15.vlw");
  textFont(myFont);
  widget1=new Widget(100, 100, 180, 40,
  "Busiest Destinations", color(200, 0, 0), stdFont, EVENT_BUTTON1);
@@ -61,9 +61,8 @@ void setup() {
 
   void draw(){
     background(0);
-    PFont myFont = loadFont("GeorgiaPro-Semibold-50.vlw");
+    PFont myFont = loadFont("GeorgiaPro-Semibold-15.vlw");
     textFont(myFont);
-    textSize(18);
     int margin = 0;
     for (int i = 0; i < displayData.size(); i++) {
       text(displayData.get(i), 20, 20 + margin);
@@ -80,8 +79,10 @@ void setup() {
    /*for (Textbox t : textboxes) {
       t.DRAW();
    }*/
-   
-   TB.DRAW();
+   if(currentScreen == screen1)
+   {
+   TB.draw();
+   }
    
    busiestRoutes();
   }
