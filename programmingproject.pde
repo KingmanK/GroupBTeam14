@@ -11,11 +11,14 @@ final int EVENT_BUTTON1=1; final int EVENT_FORWARD=2;
 final int EVENT_BUTTON2=3; final int EVENT_BACKWARD=4;
 final int EVENT_NULL=0;
 Screen currentScreen, screen1, screen2;
-
+Textbox TB;
+//ArrayList<Textbox> textboxes = new ArrayList<Textbox>();
+ ArrayList<DataPoint> values = new ArrayList<DataPoint>();
+ 
 void setup() {
  dataFile = loadTable("flights2k.csv");
  fileReader(dataFile);
- size(800,400);
+ size(1280, 720);
   
   Widget widget1, widget2, widget3, widget4;
  PFont myFont = loadFont("AmericanTypewriter-12.vlw");
@@ -29,7 +32,7 @@ void setup() {
  "Button 2", color(0,0,200), stdFont, EVENT_BUTTON2);
  widget4=new Widget(100, 200, 180, 40,
  "Backward", color(0,200,200), stdFont, EVENT_BACKWARD);
- //size(400, 400);
+ 
  widgetList.add(widget1);
  widgetList.add(widget2);
 
@@ -45,6 +48,11 @@ void setup() {
  total = dataFile.getRowCount();
  noStroke();
  PieChart.getData();
+ 
+ 
+ TB = new Textbox(540,  325,  35,  200);
+ //textboxes.add(TB);
+
 }
 
   void draw(){
@@ -54,7 +62,7 @@ void setup() {
     int margin = 0;
     for (int i = 0; i < displayData.size(); i++) {
       text(displayData.get(i), 20, 20 + margin);
-      println(displayData.get(i));
+      //println(displayData.get(i));
       margin += 20;
     }
   
@@ -63,8 +71,16 @@ void setup() {
     if (currentScreen == screen2){
       PieChart.draw();
     }
+    
+   /*for (Textbox t : textboxes) {
+      t.DRAW();
+   }*/
+   
+   TB.DRAW();
+
   }
- 
+  
+
 
 void mousePressed(){
  switch(currentScreen.getEvent(mouseX, mouseY)) {
@@ -81,7 +97,15 @@ void mousePressed(){
  println("backward"); currentScreen = screen1;
  break;
  }
+ 
+ /* for (Textbox t : textboxes) {
+      t.pressed(mouseX, mouseY);
+   }*/
+   
+  TB.pressed(mouseX, mouseY);
 }
+
+
 void mouseMoved(){
   currentScreen.mouseMoved();
 }
@@ -91,7 +115,7 @@ void fileReader(Table data) {
       int rows = data.getRowCount();
       DataPoint newPoint;
       
-      ArrayList<DataPoint> values = new ArrayList<DataPoint>();
+      //ArrayList<DataPoint> values = new ArrayList<DataPoint>();
   
      for (int i = 0; i < rows; i++) {
        newPoint = new DataPoint(data.getRow(i));
@@ -121,4 +145,24 @@ void fileReader(Table data) {
         + values.get(j).DISTANCE + "\n");
      
      }
+}
+void keyPressed() {
+  if (keyCode == ENTER) {
+    println(TB.Text);
+    TB.selected = false;
+    
+    // LOGIC FOR SEARCHING STUFF IN THE SEARCH BAR SHOULD GO HERE
+    for (int j = 0; j < values.size(); j++) {  
+      //ArrayList<Widget> airportNames = new ArrayList<Widget>();
+      //print(displayData);
+      for (int count = 0; count < values.size(); count++) {
+        for (String element : displayData) {
+          if (element.contains(TB.Text)) {
+            System.out.println(element);
+          }
+        }
+      }
+    }
+  }
+  TB.KeyPressed(key, keyCode);
 }
