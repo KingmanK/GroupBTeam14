@@ -14,7 +14,7 @@ PFont stdFont;
 final int EVENT_BUTTON1=1; final int EVENT_FORWARD=2;
 final int EVENT_BUTTON2=3; final int EVENT_BACKWARD=4;
 final int EVENT_NULL=0;
-Screen currentScreen, screen1, screen2;
+Screen currentScreen, screen1, screen2, screen3;
 Textbox TB;
 //ArrayList<Textbox> textboxes = new ArrayList<Textbox>();
  ArrayList<DataPoint> values = new ArrayList<DataPoint>();
@@ -23,13 +23,11 @@ void setup() {
  dataFile = loadTable("flights2k.csv");
  fileReader(dataFile);
  size(1280, 720);
-  
-  Widget widget1, widget2, widget3, widget4;
- PFont myFont = loadFont("AmericanTypewriter-12.vlw");
+ Widget widget1, widget2, widget3, widget4;
+ PFont myFont = loadFont("GeorgiaPro-Semibold-50.vlw");
  textFont(myFont);
- 
  widget1=new Widget(100, 100, 180, 40,
- "Button 1", color(200, 0, 0), stdFont, EVENT_BUTTON1);
+ "Busiest Destinations", color(200, 0, 0), stdFont, EVENT_BUTTON1);
  widget2=new Widget(100, 200, 180, 40,
  "Flights status", color(0, 200, 0), stdFont, EVENT_FORWARD);
  widget3=new Widget(100, 100, 180, 40,
@@ -42,10 +40,12 @@ void setup() {
 
  screen1 = new Screen(color(70));
  screen2 = new Screen(color(150));
+ screen3 = new Screen(color(255));
  screen1.add(widget1);
  screen1.add(widget2);
  screen2.add(widget3);
  screen2.add(widget4);
+ screen3.add(widget4);
  currentScreen = screen1;
  
  PieChart = new pieChart();
@@ -61,8 +61,9 @@ void setup() {
 
   void draw(){
     background(0);
-    PFont myFont = loadFont("AmericanTypewriter-12.vlw");
+    PFont myFont = loadFont("GeorgiaPro-Semibold-50.vlw");
     textFont(myFont);
+    textSize(18);
     int margin = 0;
     for (int i = 0; i < displayData.size(); i++) {
       text(displayData.get(i), 20, 20 + margin);
@@ -90,7 +91,7 @@ void setup() {
 void mousePressed(){
  switch(currentScreen.getEvent(mouseX, mouseY)) {
  case EVENT_BUTTON1:
- println("button 1!");
+ println("Busiest Destinations!"); currentScreen = screen3;
  break;
  case EVENT_BUTTON2:
  println("button 2!");
@@ -211,6 +212,10 @@ void busiestRoutes() {
       for (int count2 =0 ; count2 < maxStrArr.length; count2++) {
           text("Busiest Destination: " + maxStrArr[count2], 400, 10+11*count2);
       }*/
+      if(currentScreen == screen3)
+      {
+      textSize(18);
       text("Busiest Destination: " + maxStr, 400, 10+11);
-      text("Amount of flights: " + maxValue, 400, 10+11*maxStr.length());
+      text("Amount of flights: " + maxValue, 400, 10+30);
+      }
 }
