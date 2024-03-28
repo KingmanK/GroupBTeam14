@@ -146,15 +146,45 @@ void fileReader(Table data) {
      
      }
 }
+ DataPoint findLongestDelay(ArrayList<DataPoint> flights) {
+  DataPoint longestDelayFlight = null;
+  int longestDelay = -400;
+  
+  for (DataPoint flight : flights) {
+    int depDelay = Integer.parseInt(flight.DEP_TIME) -  Integer.parseInt(flight.CRS_DEP_TIME);
+    int arrDelay = Integer.parseInt(flight.ARR_TIME) -  Integer.parseInt(flight.CRS_ARR_TIME);
+    int totalDelay = depDelay + arrDelay;
+    
+    if (totalDelay > longestDelay) {
+      longestDelay = totaldelay;
+      longestDelayFlight = flight;
+  }
+  }
+  return longestDelayFlight;
+  }
 void keyPressed() {
   if (keyCode == ENTER) {
     println(TB.Text);
     TB.selected = false;
     
     // LOGIC FOR SEARCHING STUFF IN THE SEARCH BAR SHOULD GO HERE
+    if (TB.Text.equals("Longest Delay")) {
+      DataPoint longestDelay = findLongestDelay(values);
+      if (longestDelayFlight != null) {
+        system.out.println("Date : " + longest.DelayFlight.FL_DATE);
+        system.out.println("Carrier : " + longest.DelayFlight.FL_DATE);
+        system.out.println("Flight No. : " + longest.DelayFlight.FL_DATE);
+        system.out.println("Origin : " + longest.DelayFlight.FL_DATE);
+        system.out.println("Destination : " + longest.DelayFlight.FL_DATE);
+        int departureDelay = Integer.parseInt(longestDelayFlight.DEP_TIME) - Integer.parseInt(longestDelayFlight.CRS_DEP_TIME);
+        int arrivalDelay = Integer.parseInt(longestDelayFlight.ARR_TIME) - Integer.parseInt(longestDelayFlight.CRS_ARR_TIME);
+        int totalDelay = departureDelay - arrivalDelay;
+        system.out.println(" Overall delay : " + totalDelay); 
+        
     for (int j = 0; j < values.size(); j++) {  
       //ArrayList<Widget> airportNames = new ArrayList<Widget>();
       //print(displayData);
+      
       for (int count = 0; count < values.size(); count++) {
         for (String element : displayData) {
           if (element.contains(TB.Text)) {
