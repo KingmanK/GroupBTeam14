@@ -156,7 +156,7 @@ void fileReader(Table data) {
     int totalDelay = depDelay + arrDelay;
     
     if (totalDelay > longestDelay) {
-      longestDelay = totaldelay;
+      longestDelay = totalDelay;
       longestDelayFlight = flight;
   }
   }
@@ -170,20 +170,22 @@ void keyPressed() {
     // LOGIC FOR SEARCHING STUFF IN THE SEARCH BAR SHOULD GO HERE
     if (TB.Text.equals("Longest Delay")) {
       DataPoint longestDelay = findLongestDelay(values);
-      if (longestDelayFlight != null) {
-        system.out.println("Date : " + longest.DelayFlight.FL_DATE);
-        system.out.println("Carrier : " + longest.DelayFlight.FL_DATE);
-        system.out.println("Flight No. : " + longest.DelayFlight.FL_DATE);
-        system.out.println("Origin : " + longest.DelayFlight.FL_DATE);
-        system.out.println("Destination : " + longest.DelayFlight.FL_DATE);
-        int departureDelay = Integer.parseInt(longestDelayFlight.DEP_TIME) - Integer.parseInt(longestDelayFlight.CRS_DEP_TIME);
-        int arrivalDelay = Integer.parseInt(longestDelayFlight.ARR_TIME) - Integer.parseInt(longestDelayFlight.CRS_ARR_TIME);
+      if (longestDelay != null) {
+        println("Date : " + longestDelay.FL_DATE);
+        println("Carrier : " + longestDelay.FL_DATE);
+        println("Flight No. : " + longestDelay.FL_DATE);
+        println("Origin : " + longestDelay.FL_DATE);
+        println("Destination : " + longestDelay.FL_DATE);
+        int departureDelay = Integer.parseInt(longestDelay.DEP_TIME) - Integer.parseInt(longestDelay.CRS_DEP_TIME);
+        int arrivalDelay = Integer.parseInt(longestDelay.ARR_TIME) - Integer.parseInt(longestDelay.CRS_ARR_TIME);
         int totalDelay = departureDelay - arrivalDelay;
-        system.out.println(" Overall delay : " + totalDelay); 
+        println(" Overall delay : " + totalDelay); 
+      }
+  }
         
     for (int j = 0; j < values.size(); j++) {  
       //ArrayList<Widget> airportNames = new ArrayList<Widget>();
-      //print(displayData);
+      //print(displayData); 
       
       for (int count = 0; count < values.size(); count++) {
         for (String element : displayData) {
@@ -192,7 +194,9 @@ void keyPressed() {
           }
         }
       }
-    }
-  }
+    
+  
   TB.KeyPressed(key, keyCode);
+}
+  }
 }
