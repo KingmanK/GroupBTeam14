@@ -1,6 +1,6 @@
 // Group B Team 14 - Programming Project
 import java.util.ArrayList;
-
+PImage img;
 Table dataFile;
 pieChart PieChart;
 int total;
@@ -20,18 +20,21 @@ ArrayList<DataPoint> values = new ArrayList<DataPoint>();
 void setup() {
  dataFile = loadTable("flights2k.csv");
  fileReader(dataFile);
- size(1280, 720);
+ size(1280,720);
+ img = loadImage("backarrow.jpg");
+  
  Widget widget1, widget2, widget3, widget4;
- PFont myFont = loadFont("GeorgiaPro-Semibold-15.vlw");
+ PFont myFont = loadFont("Calibri-Bold-30.vlw");
  textFont(myFont);
- widget1=new Widget(100, 100, 180, 40,
- "Busiest Destinations", color(200, 0, 0), stdFont, EVENT_BUTTON1);
- widget2=new Widget(100, 200, 180, 40,
- "Forward", color(0, 200, 0), stdFont, EVENT_FORWARD);
- widget3=new Widget(100, 100, 180, 40,
+ 
+ widget1=new Widget(100, 0, 180, 40,
+ "Button 1", color(200, 0, 0), stdFont, EVENT_BUTTON1);
+ widget2=new Widget(340, 0, 180, 40,
+ "Flights status", color(0, 200, 0), stdFont, EVENT_FORWARD);
+ widget3=new Widget(100, 0, 180, 40,
  "Button 2", color(0,0,200), stdFont, EVENT_BUTTON2);
- widget4=new Widget(100, 200, 180, 40,
- "Backward", color(0,200,200), stdFont, EVENT_BACKWARD);
+ widget4=new Widget(0, 0, 53, 27,
+ "<---", color(0,200,200), stdFont, EVENT_BACKWARD);
  
  widgetList.add(widget1);
  widgetList.add(widget2);
@@ -50,6 +53,8 @@ void setup() {
  PieChart = new pieChart();
  total = dataFile.getRowCount();
  noStroke();
+ PieChart.setup();
+ PieChart.draw();
  PieChart.getData();
  
  
@@ -58,6 +63,7 @@ void setup() {
   
 void draw(){
     background(0);
+    
   PFont myFont = loadFont("AmericanTypewriter-12.vlw");
   textFont(myFont);
   int margin = 0;
@@ -158,6 +164,19 @@ DataPoint findLongestDelay(ArrayList<DataPoint> flights) {
   currentScreen.draw();
   }
  
+    int margin = 0;
+    for (int i = 0; i < displayData.size(); i++) {
+      text(displayData.get(i), 20, 20 + margin);
+      println(displayData.get(i));
+      margin += 20;
+    }
+  
+    currentScreen.draw();
+    
+    if (currentScreen == screen2){
+      PieChart.draw();
+      image(img, 0, 0);
+    }
   }
  
 
@@ -180,6 +199,9 @@ void mousePressed(){
 
 void mouseMoved(){
   currentScreen.mouseMoved();
+  if (currentScreen == screen2){
+    image(img, 0, 0);
+  }
 }
 void fileReader(Table data) {
       

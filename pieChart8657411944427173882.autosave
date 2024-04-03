@@ -5,8 +5,7 @@ class pieChart {
   double[] angles = new double[3];
   
   void setup() {
-    PFont pieFont = loadFont("AmericanTypewriter-12.vlw");
-    textSize(18);
+    PFont pieFont = loadFont("Calibri-Bold-30.vlw");
     textFont(pieFont);
   }
   void draw() {
@@ -24,7 +23,7 @@ class pieChart {
       if (Integer.parseInt(row.getString(16)) == 1){
         cancelled++;
       }
-      if(Integer.parseInt(row.getString(17)) == 2){
+      if(Integer.parseInt(row.getString(17)) == 1){
         diverted++;
       }
     }
