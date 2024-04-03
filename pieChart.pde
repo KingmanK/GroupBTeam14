@@ -4,13 +4,9 @@ class pieChart {
   int onTime = 0;
   double[] angles = new double[3];
   
-<<<<<<< Updated upstream
-  void draw() {
-    PFont pieFont = loadFont("BookAntiqua-20.vlw");
-=======
   void setup() {
-    PFont pieFont = loadFont("Calibri-Bold-30.vlw");
->>>>>>> Stashed changes
+    PFont pieFont = loadFont("AmericanTypewriter-12.vlw");
+    textSize(18);
     textFont(pieFont);
   }
   void draw() {
@@ -49,6 +45,7 @@ class pieChart {
     for (int i = 0; i < data.length; i++) {
       float gray = map(i, 0, data.length, 0, 255);
       fill(gray);
+      noStroke();
       arc(580, 300-diameter, diameter, diameter, lastAngle, lastAngle+radians((float)data[i]));
       lastAngle += radians((float)data[i]);
     }
