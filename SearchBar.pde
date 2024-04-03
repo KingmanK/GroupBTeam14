@@ -15,7 +15,7 @@ class Textbox {
       this.x = x; this.y = y; this.h = h; this.w = w;
    }
    
-   void draw() {
+   void DRAW() {
       noStroke();
       if (selected) {
          fill(BackgroundSelected);

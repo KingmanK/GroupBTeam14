@@ -1,24 +1,15 @@
 // Group B Team 14 - Programming Project
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Map.*;
-import java.util.Set;
 
 Table dataFile;
-pieChart PieChart;
-int total;
 ArrayList<String> displayData; 
 ArrayList<Widget> widgetList = new ArrayList<Widget>();
 PFont stdFont;
 final int EVENT_BUTTON1=1; final int EVENT_FORWARD=2;
 final int EVENT_BUTTON2=3; final int EVENT_BACKWARD=4;
 final int EVENT_NULL=0;
-Screen currentScreen, screen1, screen2, screen3;
-Textbox TB;
-//ArrayList<Textbox> textboxes = new ArrayList<Textbox>();
- ArrayList<DataPoint> values = new ArrayList<DataPoint>();
- 
+Screen currentScreen, screen1, screen2;
+
 void setup() {
  dataFile = loadTable("flights2k.csv");
  fileReader(dataFile);
@@ -29,7 +20,7 @@ void setup() {
  widget1=new Widget(100, 100, 180, 40,
  "Busiest Destinations", color(200, 0, 0), stdFont, EVENT_BUTTON1);
  widget2=new Widget(100, 200, 180, 40,
- "Flights status", color(0, 200, 0), stdFont, EVENT_FORWARD);
+ "Forward", color(0, 200, 0), stdFont, EVENT_FORWARD);
  widget3=new Widget(100, 100, 180, 40,
  "Button 2", color(0,0,200), stdFont, EVENT_BUTTON2);
  widget4=new Widget(100, 200, 180, 40,
@@ -38,9 +29,10 @@ void setup() {
  widgetList.add(widget1);
  widgetList.add(widget2);
 
- screen1 = new Screen(color(70));
+ screen1 = new Screen(color(0));
  screen2 = new Screen(color(150));
  screen3 = new Screen(color(255));
+
  screen1.add(widget1);
  screen1.add(widget2);
  screen2.add(widget3);
@@ -61,57 +53,41 @@ void setup() {
 
   void draw(){
     background(0);
-    PFont myFont = loadFont("GeorgiaPro-Semibold-15.vlw");
-    textFont(myFont);
-    int margin = 0;
-    for (int i = 0; i < displayData.size(); i++) {
-      text(displayData.get(i), 20, 20 + margin);
-      //println(displayData.get(i));
-      margin += 20;
-    }
-  
-    currentScreen.draw();
-    
-    if (currentScreen == screen2){
-      PieChart.draw();
-    }
-    
-   /*for (Textbox t : textboxes) {
-      t.DRAW();
-   }*/
-   if(currentScreen == screen1)
-   {
-   TB.draw();
-   }
-   
-   busiestRoutes();
+  PFont myFont = loadFont("AmericanTypewriter-12.vlw");
+  textFont(myFont);
+  int margin = 0;
+  for (int i = 0; i < displayData.size(); i++) {
+    text(displayData.get(i), 20, 20 + margin);
+    //println(displayData.get(i));
+    margin += 20;
   }
   
-
+  
+    for(int i = 0; i<widgetList.size(); i++){
+  Widget aWidget = (Widget) widgetList.get(i);
+  aWidget.draw();
+  currentScreen.draw();
+  }
+ 
+  }
+ 
 
 void mousePressed(){
  switch(currentScreen.getEvent(mouseX, mouseY)) {
  case EVENT_BUTTON1:
- println("Busiest Destinations!"); currentScreen = screen3;
+ println("button 1!");
  break;
  case EVENT_BUTTON2:
  println("button 2!");
  break;
  case EVENT_FORWARD:
- println("Flights status"); currentScreen = screen2;
+ println("forward"); currentScreen = screen2;
  break;
  case EVENT_BACKWARD:
  println("backward"); currentScreen = screen1;
  break;
  }
- 
- /* for (Textbox t : textboxes) {
-      t.pressed(mouseX, mouseY);
-   }*/
-   
-  TB.pressed(mouseX, mouseY);
 }
-
 
 void mouseMoved(){
   currentScreen.mouseMoved();
@@ -122,7 +98,7 @@ void fileReader(Table data) {
       int rows = data.getRowCount();
       DataPoint newPoint;
       
-      //ArrayList<DataPoint> values = new ArrayList<DataPoint>();
+      ArrayList<DataPoint> values = new ArrayList<DataPoint>();
   
      for (int i = 0; i < rows; i++) {
        newPoint = new DataPoint(data.getRow(i));
@@ -152,71 +128,4 @@ void fileReader(Table data) {
         + values.get(j).DISTANCE + "\n");
      
      }
-}
-void keyPressed() {
-  if (keyCode == ENTER) {
-    println(TB.Text);
-    TB.selected = false;
-    
-    // LOGIC FOR SEARCHING STUFF IN THE SEARCH BAR SHOULD GO HERE
-    for (int j = 0; j < values.size(); j++) {  
-      
-      for (int count = 0; count < values.size(); count++) {
-        for (String element : displayData) {
-          if (element.contains(TB.Text)) {
-            System.out.println(element);
-          }
-        }
-      }
-    }
-  }
-  TB.KeyPressed(key, keyCode);
-}
-
-void busiestRoutes() {
-    String[] destCityArr = new String[values.size()];
-      for (int count = 0; count < values.size(); count++) {
-            //fill(255);
-            //text(values.get(count).DEST_CITY_NAME, 10, 10*count);
-            destCityArr[count] = values.get(count).DEST_CITY_NAME;
-      }
-      String maxStr = " ";
-      int maxValue = 0;
-      Map<String,Integer> frequency = new HashMap<String, Integer>();
-      for (String freq: destCityArr) {
-        if (frequency.keySet().contains(freq)) {
-          frequency.put(freq, frequency.get(freq) + 1); 
-        }
-        else {
-          frequency.put(freq, 1);
-        }
-        maxStr = "";
-        maxValue = 0;
-        for (Map.Entry<String,Integer> entry : frequency.entrySet()) {
-          String key = entry.getKey();
-          Integer count = entry.getValue();
-          if ( count > maxValue ) { 
-            maxValue = count;
-            maxStr = key;
-          }
-          else if (count == maxValue){ 
-          if (key.length() < maxStr.length()) {
-            maxStr = key; 
-          }
-      }
-        }
-        
-        
-        
-      } 
-      /*String maxStrArr[] = maxStr.split(" ");
-      for (int count2 =0 ; count2 < maxStrArr.length; count2++) {
-          text("Busiest Destination: " + maxStrArr[count2], 400, 10+11*count2);
-      }*/
-      if(currentScreen == screen3)
-      {
-      textSize(18);
-      text("Busiest Destination: " + maxStr, 400, 10+11);
-      text("Amount of flights: " + maxValue, 400, 10+30);
-      }
 }
