@@ -5,12 +5,8 @@ class pieChart {
   double[] angles = new double[3];
   
   void draw() {
-
-    PFont pieFont = loadFont("BookAntiqua-20.vlw");
-
     PFont pieFont = loadFont("GeorgiaPro-Semibold-15.vlw");
     textSize(18);
-
     textFont(pieFont);
     calculateAngles();
     pie_chart(150, angles);
