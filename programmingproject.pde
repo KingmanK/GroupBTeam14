@@ -13,31 +13,42 @@ Screen currentScreen, screen1, screen2;
 void setup() {
  dataFile = loadTable("flights2k.csv");
  fileReader(dataFile);
-  size(800,400);
-  
-  Widget widget1, widget2, widget3, widget4;
- PFont myFont = loadFont("AmericanTypewriter-12.vlw");
+ size(1280, 720);
+ Widget widget1, widget2, widget3, widget4;
+ PFont myFont = loadFont("GeorgiaPro-Semibold-15.vlw");
  textFont(myFont);
- 
  widget1=new Widget(100, 100, 180, 40,
- "Button 1", color(200, 0, 0), stdFont, EVENT_BUTTON1);
+ "Busiest Destinations", color(200, 0, 0), stdFont, EVENT_BUTTON1);
  widget2=new Widget(100, 200, 180, 40,
  "Forward", color(0, 200, 0), stdFont, EVENT_FORWARD);
  widget3=new Widget(100, 100, 180, 40,
  "Button 2", color(0,0,200), stdFont, EVENT_BUTTON2);
  widget4=new Widget(100, 200, 180, 40,
  "Backward", color(0,200,200), stdFont, EVENT_BACKWARD);
- size(400, 400);
+ 
  widgetList.add(widget1);
  widgetList.add(widget2);
 
  screen1 = new Screen(color(0));
  screen2 = new Screen(color(150));
+ screen3 = new Screen(color(255));
+
  screen1.add(widget1);
  screen1.add(widget2);
  screen2.add(widget3);
  screen2.add(widget4);
+ screen3.add(widget4);
  currentScreen = screen1;
+ 
+ PieChart = new pieChart();
+ total = dataFile.getRowCount();
+ noStroke();
+ PieChart.getData();
+ 
+ 
+ TB = new Textbox(540,  325,  35,  200);
+ //textboxes.add(TB);
+
 }
 
   void draw(){
@@ -77,6 +88,7 @@ void mousePressed(){
  break;
  }
 }
+
 void mouseMoved(){
   currentScreen.mouseMoved();
 }

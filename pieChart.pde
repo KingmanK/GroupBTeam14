@@ -6,6 +6,7 @@ class pieChart {
   
   void draw() {
     PFont pieFont = loadFont("AmericanTypewriter-12.vlw");
+    textSize(18);
     textFont(pieFont);
     calculateAngles();
     pie_chart(150, angles);
