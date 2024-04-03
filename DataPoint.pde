@@ -40,6 +40,4 @@ class DataPoint{
     DISTANCE = row.getString(17);
   }
   
-  
-  
 }
