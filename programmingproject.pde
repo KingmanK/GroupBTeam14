@@ -18,47 +18,46 @@ Textbox TB;
 ArrayList<DataPoint> values = new ArrayList<DataPoint>();
 
 void setup() {
-  dataFile = loadTable("flights2k.csv");
-  fileReader(dataFile);
-  size(1280, 720);
+ dataFile = loadTable("flights2k.csv");
+ fileReader(dataFile);
+ size(1280, 720);
+ Widget widget1, widget2, widget3, widget4;
+ PFont myFont = loadFont("GeorgiaPro-Semibold-15.vlw");
+ textFont(myFont);
+ widget1=new Widget(100, 100, 180, 40,
+ "Busiest Destinations", color(200, 0, 0), stdFont, EVENT_BUTTON1);
+ widget2=new Widget(100, 200, 180, 40,
+ "Forward", color(0, 200, 0), stdFont, EVENT_FORWARD);
+ widget3=new Widget(100, 100, 180, 40,
+ "Button 2", color(0,0,200), stdFont, EVENT_BUTTON2);
+ widget4=new Widget(100, 200, 180, 40,
+ "Backward", color(0,200,200), stdFont, EVENT_BACKWARD);
+ 
+ widgetList.add(widget1);
+ widgetList.add(widget2);
 
-  Widget widget1, widget2, widget3, widget4;
-  PFont myFont = loadFont("AmericanTypewriter-12.vlw");
-  textFont(myFont);
+ screen1 = new Screen(color(0));
+ screen2 = new Screen(color(150));
+ screen3 = new Screen(color(255));
 
-  widget1=new Widget(100, 100, 180, 40,
-    "Button 1", color(200, 0, 0), stdFont, EVENT_BUTTON1);
-  widget2=new Widget(100, 200, 180, 40,
-    "Flights status", color(0, 200, 0), stdFont, EVENT_FORWARD);
-  widget3=new Widget(100, 100, 180, 40,
-    "Button 2", color(0, 0, 200), stdFont, EVENT_BUTTON2);
-  widget4=new Widget(100, 200, 180, 40,
-    "Backward", color(0, 200, 200), stdFont, EVENT_BACKWARD);
-
-  widgetList.add(widget1);
-  widgetList.add(widget2);
-
-  screen1 = new Screen(color(70));
-  screen2 = new Screen(color(150));
+ screen1.add(widget1);
+ screen1.add(widget2);
+ screen2.add(widget3);
+ screen2.add(widget4);
+ screen3.add(widget4);
+ currentScreen = screen1;
+ 
+ PieChart = new pieChart();
+ total = dataFile.getRowCount();
+ noStroke();
+ PieChart.getData();
+ 
+ 
+ TB = new Textbox(540,  325,  35,  200);
+ //textboxes.add(TB);
   
-  screen1.add(widget1);
-  screen1.add(widget2);
-  screen2.add(widget3);
-  screen2.add(widget4);
-  currentScreen = screen1;
-
-  PieChart = new pieChart();
-  total = dataFile.getRowCount();
-  noStroke();
-  PieChart.getData();
-
-
-  TB = new Textbox(540, 325, 35, 200);
-  //textboxes.add(TB);
-}
-
-void draw() {
-  background(0);
+void draw(){
+    background(0);
   PFont myFont = loadFont("AmericanTypewriter-12.vlw");
   textFont(myFont);
   int margin = 0;
@@ -151,6 +150,44 @@ void fileReader(Table data) {
 DataPoint findLongestDelay(ArrayList<DataPoint> flights) {
   DataPoint longestDelayFlight = null;
   int longestDelay = -400;
+  
+  
+    for(int i = 0; i<widgetList.size(); i++){
+  Widget aWidget = (Widget) widgetList.get(i);
+  aWidget.draw();
+  currentScreen.draw();
+  }
+ 
+  }
+ 
+
+void mousePressed(){
+ switch(currentScreen.getEvent(mouseX, mouseY)) {
+ case EVENT_BUTTON1:
+ println("button 1!");
+ break;
+ case EVENT_BUTTON2:
+ println("button 2!");
+ break;
+ case EVENT_FORWARD:
+ println("forward"); currentScreen = screen2;
+ break;
+ case EVENT_BACKWARD:
+ println("backward"); currentScreen = screen1;
+ break;
+ }
+}
+
+void mouseMoved(){
+  currentScreen.mouseMoved();
+}
+void fileReader(Table data) {
+      
+      int columns = data.getColumnCount();
+      int rows = data.getRowCount();
+      DataPoint newPoint;
+      
+      ArrayList<DataPoint> values = new ArrayList<DataPoint>();
   
   for (DataPoint flight : flights) {
     System.out.println("DEP_TIME: " + flight.DEP_TIME + ", CRS_DEP_TIME: " + flight.CRS_DEP_TIME); 
