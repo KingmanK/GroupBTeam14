@@ -5,7 +5,7 @@ class pieChart {
   double[] angles = new double[3];
   
   void draw() {
-    PFont pieFont = loadFont("AmericanTypewriter-12.vlw");
+    PFont pieFont = loadFont("Arial-Black-18.vlw");
     textSize(18);
     textFont(pieFont);
     calculateAngles();
