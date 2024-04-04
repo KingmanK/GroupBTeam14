@@ -6,7 +6,6 @@ import java.util.Map.*;
 import java.util.Set;
 
 Table dataFile;
-PImage img;
 pieChart PieChart;
 int total;
 ArrayList<String> displayData;
@@ -26,18 +25,17 @@ void setup() {
  dataFile = loadTable("flights2k.csv");
  fileReader(dataFile);
  size(1280, 720);
- img = loadImage("backarrow.png");
  Widget widget1, widget2, widget3, widget4;
  PFont myFont = loadFont("AmericanTypewriter-12.vlw");
  textFont(myFont);
- widget1=new Widget(100, 0, 180, 40,
- "Busiest Destinations", color(240, 120, 120), stdFont, EVENT_BUTTON1);
- widget2=new Widget(340, 0, 180, 40,
- "Flights status", color(120, 240, 120), stdFont, EVENT_FORWARD);
+ widget1=new Widget(100, 100, 180, 40,
+ "Busiest Destinations", color(200, 0, 0), stdFont, EVENT_BUTTON1);
+ widget2=new Widget(100, 200, 180, 40,
+ "Forward", color(0, 200, 0), stdFont, EVENT_FORWARD);
  widget3=new Widget(100, 100, 180, 40,
- "Button 2", color(120, 120, 240), stdFont, EVENT_BUTTON2);
- widget4=new Widget(0, 0, 53, 27,
- "<---", color(0, 200, 200), stdFont, EVENT_BACKWARD);
+ "Button 2", color(0,0,200), stdFont, EVENT_BUTTON2);
+ widget4=new Widget(100, 200, 180, 40,
+ "Backward", color(0,200,200), stdFont, EVENT_BACKWARD);
  
  widgetList.add(widget1);
  widgetList.add(widget2);
@@ -79,16 +77,12 @@ void draw(){
   if (currentScreen == screen2) {
     PieChart.draw();
   }
-  
-  if (currentScreen == screen2 || currentScreen == screen3){
-  image(img, 0, 0);
-  }
 
   /*for (Textbox t : textboxes) {
    t.DRAW();
    }*/
 
-  TB.draw();
+  TB.d();
   
   busiestRoutes();
 }
@@ -124,9 +118,6 @@ void mousePressed() {
 
 void mouseMoved() {
   currentScreen.mouseMoved();
-  if (currentScreen == screen2 || currentScreen == screen3){
-  image(img, 0, 0);
-  }
 }
 void fileReader(Table data) {
 
@@ -191,19 +182,7 @@ void keyPressed() {
     println(TB.Text);
     TB.selected = false;
 
-    for (int j = 0; j < values.size(); j++) {
-      //ArrayList<Widget> airportNames = new ArrayList<Widget>();
-      //print(displayData);
-
-      for (int count = 0; count < values.size(); count++) {
-        for (String element : displayData) {
-          if (element.contains(TB.Text)) {
-            System.out.println(element);
-          }
-        }
-      }
-
-   // LOGIC FOR SEARCHING STUFF IN THE SEARCH BAR SHOULD GO HERE
+    // LOGIC FOR SEARCHING STUFF IN THE SEARCH BAR SHOULD GO HERE
     if (TB.Text.equals("Longest Delay")) {
       DataPoint longestDelay = findLongestDelay(values);
       if (longestDelay != null) {
@@ -220,6 +199,20 @@ void keyPressed() {
       }
     }
     }
+
+    for (int j = 0; j < values.size(); j++) {
+      //ArrayList<Widget> airportNames = new ArrayList<Widget>();
+      //print(displayData);
+
+      for (int count = 0; count < values.size(); count++) {
+        for (String element : displayData) {
+          if (element.contains(TB.Text)) {
+            System.out.println(element);
+          }
+        }
+      }
+
+
      
     }
   }
