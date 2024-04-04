@@ -31,13 +31,13 @@ void setup() {
  PFont myFont = loadFont("AmericanTypewriter-12.vlw");
  textFont(myFont);
  widget1=new Widget(350, 340, 180, 40,
- "Busiest Destinations", color(240, 120, 120), stdFont, EVENT_BUTTON1);
+ "Busiest Destinations", color(240, 120, 120), stdFont, EVENT_BUTTON1, true);
  widget2=new Widget(550, 340, 180, 40,
- "Flight Status", color(120, 240, 120), stdFont, EVENT_FORWARD);
+ "Flight Status", color(120, 240, 120), stdFont, EVENT_FORWARD, true);
  widget3=new Widget(750, 340, 180, 40,
- "Search Bar", color(120, 120, 240), stdFont, EVENT_BUTTON2);
+ "Search Bar", color(120, 120, 240), stdFont, EVENT_BUTTON2, true);
  widget4=new Widget(0, 0, 53, 27,
- "<---", color(0, 200, 200), stdFont, EVENT_BACKWARD);
+ "", color(150), stdFont, EVENT_BACKWARD, false);
  
  widgetList.add(widget1);
  widgetList.add(widget2);
