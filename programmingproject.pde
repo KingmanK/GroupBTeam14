@@ -17,7 +17,7 @@ final int EVENT_FORWARD=2;
 final int EVENT_BUTTON2=3;
 final int EVENT_BACKWARD=4;
 final int EVENT_NULL=0;
-Screen currentScreen, screen1, screen2, screen3;
+Screen currentScreen, screen1, screen2, screen3, screen4;
 Textbox TB;
 //ArrayList<Textbox> textboxes = new ArrayList<Textbox>();
 ArrayList<DataPoint> values = new ArrayList<DataPoint>();
@@ -30,25 +30,26 @@ void setup() {
  Widget widget1, widget2, widget3, widget4;
  PFont myFont = loadFont("AmericanTypewriter-12.vlw");
  textFont(myFont);
- widget1=new Widget(100, 0, 180, 40,
+ widget1=new Widget(350, 340, 180, 40,
  "Busiest Destinations", color(240, 120, 120), stdFont, EVENT_BUTTON1);
- widget2=new Widget(340, 0, 180, 40,
- "Flights status", color(120, 240, 120), stdFont, EVENT_FORWARD);
- widget3=new Widget(100, 100, 180, 40,
- "Button 2", color(120, 120, 240), stdFont, EVENT_BUTTON2);
+ widget2=new Widget(550, 340, 180, 40,
+ "Flight Status", color(120, 240, 120), stdFont, EVENT_FORWARD);
+ widget3=new Widget(750, 340, 180, 40,
+ "Search Bar", color(120, 120, 240), stdFont, EVENT_BUTTON2);
  widget4=new Widget(0, 0, 53, 27,
  "<---", color(0, 200, 200), stdFont, EVENT_BACKWARD);
  
  widgetList.add(widget1);
  widgetList.add(widget2);
 
- screen1 = new Screen(color(70));
+ screen1 = new Screen(color(150));
  screen2 = new Screen(color(150));
- screen3 = new Screen(color(255));
+ screen3 = new Screen(color(150));
+ screen4 = new Screen(color(150));
 
  screen1.add(widget1);
  screen1.add(widget2);
- screen2.add(widget3);
+ screen1.add(widget3);
  screen2.add(widget4);
  screen3.add(widget4);
  currentScreen = screen1;
@@ -87,8 +88,12 @@ void draw(){
   /*for (Textbox t : textboxes) {
    t.DRAW();
    }*/
-
-  TB.draw();
+  if (currentScreen == screen4) {
+    textSize(25);
+    fill(255);
+    text("Search bar", 570, 140);
+    TB.draw();
+  }
   
   busiestRoutes();
 }
@@ -102,14 +107,15 @@ void mousePressed() {
     currentScreen = screen3;
     break;
   case EVENT_BUTTON2:
-    println("button 2!");
+    println("Search Bar");
+    currentScreen = screen4;
     break;
   case EVENT_FORWARD:
-    println("Flights status");
+    println("Flight Status");
     currentScreen = screen2;
     break;
   case EVENT_BACKWARD:
-    println("backward");
+    println("Backward");
     currentScreen = screen1;
     break;
   }
