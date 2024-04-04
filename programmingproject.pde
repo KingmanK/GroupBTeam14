@@ -28,7 +28,7 @@ void setup() {
  size(1280, 720);
  img = loadImage("backarrow.png");
  Widget widget1, widget2, widget3, widget4;
- PFont myFont = loadFont("AmericanTypewriter-12.vlw");
+ PFont myFont = loadFont("Rockwell-40.vlw");
  textFont(myFont);
  widget1=new Widget(350, 340, 180, 40,
  "Busiest Destinations", color(240, 120, 120), stdFont, EVENT_BUTTON1, true);
@@ -52,6 +52,7 @@ void setup() {
  screen1.add(widget3);
  screen2.add(widget4);
  screen3.add(widget4);
+ screen4.add(widget4);
  currentScreen = screen1;
  
  PieChart = new pieChart();
@@ -66,7 +67,7 @@ void setup() {
 
 void draw(){
     background(0);
-  PFont myFont = loadFont("AmericanTypewriter-12.vlw");
+  PFont myFont = loadFont("Rockwell-15.vlw");
   textFont(myFont);
   int margin = 0;
   for (int i = 0; i < displayData.size(); i++) {
@@ -81,7 +82,7 @@ void draw(){
     PieChart.draw();
   }
   
-  if (currentScreen == screen2 || currentScreen == screen3){
+  if (currentScreen == screen2 || currentScreen == screen3 || currentScreen == screen4){
   image(img, 0, 0);
   }
 
@@ -89,9 +90,10 @@ void draw(){
    t.DRAW();
    }*/
   if (currentScreen == screen4) {
-    textSize(25);
     fill(255);
-    text("Search bar", 570, 140);
+    myFont = loadFont("Rockwell-40.vlw");
+    textFont(myFont);
+    text("Search bar", 540, 140);
     TB.draw();
   }
   
@@ -274,8 +276,9 @@ void keyPressed() {
       }*/
       if(currentScreen == screen3)
       {
-      textSize(18);
-      text("Busiest Destination: " + maxStr, 400, 10+11);
-      text("Amount of flights: " + maxValue, 400, 10+30);
+      PFont myFont = loadFont("Rockwell-40.vlw");
+      textFont(myFont);
+      text("Busiest Destination: " + maxStr, 400, 10+50);
+      text("Amount of flights: " + maxValue, 400, 10+100);
       }
 }
