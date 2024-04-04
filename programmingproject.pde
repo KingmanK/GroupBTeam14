@@ -88,7 +88,7 @@ void draw(){
    t.DRAW();
    }*/
 
-  TB.DRAW();
+  TB.draw();
   
   busiestRoutes();
 }
