@@ -52,6 +52,7 @@ void setup() {
  screen1.add(widget3);
  screen2.add(widget4);
  screen3.add(widget4);
+ screen4.add(widget4);
  currentScreen = screen1;
  
  PieChart = new pieChart();
