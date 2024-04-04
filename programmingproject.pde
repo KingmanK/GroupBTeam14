@@ -82,7 +82,7 @@ void draw(){
     PieChart.draw();
   }
   
-  if (currentScreen == screen2 || currentScreen == screen3 || currentScreen == screen4){
+  if (currentScreen != screen1){
   image(img, 0, 0);
   }
 
