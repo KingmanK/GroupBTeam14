@@ -31,21 +31,21 @@ void setup() {
  PFont myFont = loadFont("AmericanTypewriter-12.vlw");
  textFont(myFont);
  widget1=new Widget(350, 340, 180, 40,
- "Busiest Destinations", color(240, 120, 120), stdFont, EVENT_BUTTON1);
+ "Busiest Destinations", color(200, 0, 0), stdFont, EVENT_BUTTON1);
  widget2=new Widget(550, 340, 180, 40,
- "Flight Status", color(120, 240, 120), stdFont, EVENT_FORWARD);
+ "Flights status", color(0, 200, 0), stdFont, EVENT_FORWARD);
  widget3=new Widget(750, 340, 180, 40,
- "Search Bar", color(120, 120, 240), stdFont, EVENT_BUTTON2);
+ "Search bar", color(0,0,200), stdFont, EVENT_BUTTON2);
  widget4=new Widget(0, 0, 53, 27,
- "<---", color(0, 200, 200), stdFont, EVENT_BACKWARD);
+ "<---", color(0,200,200), stdFont, EVENT_BACKWARD);
  
  widgetList.add(widget1);
  widgetList.add(widget2);
 
- screen1 = new Screen(color(150));
+ screen1 = new Screen(color(70));
  screen2 = new Screen(color(150));
- screen3 = new Screen(color(150));
- screen4 = new Screen(color(150));
+ screen3 = new Screen(color(255));
+ screen4 = new Screen(color(70));
 
  screen1.add(widget1);
  screen1.add(widget2);
@@ -88,7 +88,9 @@ void draw(){
   /*for (Textbox t : textboxes) {
    t.DRAW();
    }*/
-  if (currentScreen == screen4) {
+
+
+  if (currentScreen == screen4){
     textSize(25);
     fill(255);
     text("Search bar", 570, 140);
@@ -107,15 +109,15 @@ void mousePressed() {
     currentScreen = screen3;
     break;
   case EVENT_BUTTON2:
-    println("Search Bar");
+    println("Search bar");
     currentScreen = screen4;
     break;
   case EVENT_FORWARD:
-    println("Flight Status");
+    println("Flights status");
     currentScreen = screen2;
     break;
   case EVENT_BACKWARD:
-    println("Backward");
+    println("backward");
     currentScreen = screen1;
     break;
   }
@@ -197,19 +199,7 @@ void keyPressed() {
     println(TB.Text);
     TB.selected = false;
 
-    for (int j = 0; j < values.size(); j++) {
-      //ArrayList<Widget> airportNames = new ArrayList<Widget>();
-      //print(displayData);
-
-      for (int count = 0; count < values.size(); count++) {
-        for (String element : displayData) {
-          if (element.contains(TB.Text)) {
-            System.out.println(element);
-          }
-        }
-      }
-
-   // LOGIC FOR SEARCHING STUFF IN THE SEARCH BAR SHOULD GO HERE
+    // LOGIC FOR SEARCHING STUFF IN THE SEARCH BAR SHOULD GO HERE
     if (TB.Text.equals("Longest Delay")) {
       DataPoint longestDelay = findLongestDelay(values);
       if (longestDelay != null) {
@@ -226,10 +216,24 @@ void keyPressed() {
       }
     }
     }
+
+    for (int j = 0; j < values.size(); j++) {
+      //ArrayList<Widget> airportNames = new ArrayList<Widget>();
+      //print(displayData);
+
+      for (int count = 0; count < values.size(); count++) {
+        for (String element : displayData) {
+          if (element.contains(TB.Text)) {
+            System.out.println(element);
+          }
+        }
+      }
+
+
      
     }
   }
-   TB.KeyPressed(key, keyCode);
+  TB.KeyPressed(key, keyCode);
 }
    
    void busiestRoutes() {
