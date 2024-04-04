@@ -1,4 +1,4 @@
-class busyRoutes
+class BusyRoutes
 {
  int AL, KY, OH, AK, LA, OK, AZ, ME, OR, AR, MD, PA;
  int SM, MA, PR, CA, MI, RI, CO, MN, SC, CT, MS, SD;
