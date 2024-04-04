@@ -52,6 +52,7 @@ void setup() {
  screen1.add(widget3);
  screen2.add(widget4);
  screen3.add(widget4);
+ screen4.add(widget4);
  currentScreen = screen1;
  
  PieChart = new pieChart();
@@ -81,7 +82,7 @@ void draw(){
     PieChart.draw();
   }
   
-  if (currentScreen == screen2 || currentScreen == screen3){
+  if (currentScreen == screen2 || currentScreen == screen3 || currentScreen == screen4){
   image(img, 0, 0);
   }
 
