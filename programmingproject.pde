@@ -82,7 +82,7 @@ void draw(){
     PieChart.draw();
   }
   
-  if (currentScreen == screen2 || currentScreen == screen3 || currentScreen == screen4){
+  if (currentScreen != screen1){
   image(img, 0, 0);
   }
 
@@ -93,7 +93,7 @@ void draw(){
     fill(255);
     myFont = loadFont("Rockwell-40.vlw");
     textFont(myFont);
-    text("Search bar", 540, 140);
+    text("Search Bar", 540, 140);
     TB.draw();
   }
   
@@ -133,7 +133,7 @@ void mousePressed() {
 void mouseMoved() {
   currentScreen.mouseMoved();
   if (currentScreen == screen2 || currentScreen == screen3){
-  image(img, 0, 0);
+  //image(img, 0, 0);
   }
 }
 void fileReader(Table data) {
