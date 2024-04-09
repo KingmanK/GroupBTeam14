@@ -6,7 +6,7 @@ class pieChart {
   
   void draw() {
 
-    PFont pieFont = loadFont("Arial-Black-18.vlw");
+    PFont pieFont = loadFont("AmericanTypewriter-12.vlw");
     textSize(18);
 
     textFont(pieFont);

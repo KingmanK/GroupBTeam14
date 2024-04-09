@@ -184,7 +184,7 @@ DataPoint findLongestDelay(ArrayList<DataPoint> flights) {
   
   for (DataPoint flight : flights) {
    // System.out.println("DEP_TIME: " + flight.DEP_TIME + ", CRS_DEP_TIME: " + flight.CRS_DEP_TIME); 
-    try {
+   try {
       int depDelay = Integer.parseInt(flight.CRS_DEP_TIME) - Integer.parseInt(flight.DEP_TIME);
       int arrDelay = Integer.parseInt(flight.CRS_ARR_TIME) - Integer.parseInt(flight.ARR_TIME);
       int totalDelay = depDelay + arrDelay;
@@ -286,7 +286,7 @@ void keyPressed() {
       }*/
       if(currentScreen == busiestDestinationScreen)
       {
-      PFont myFont = loadFont("Rockwell-40.vlw");
+      PFont myFont = loadFont("AmericanTypewriter-12.vlw");
       textFont(myFont);
       text("Busiest Destination: " + maxStr, 400, 10+50);
       text("Amount of flights: " + maxValue, 400, 10+100);
