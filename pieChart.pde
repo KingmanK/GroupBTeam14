@@ -5,15 +5,17 @@ class pieChart {
   double[] angles = new double[3];
   
   void draw() {
+
     PFont pieFont = loadFont("Arial-Black-18.vlw");
     textSize(18);
+
     textFont(pieFont);
     calculateAngles();
     pie_chart(150, angles);
     fill(245);
     text((nf(((float)onTime/total)*100,0,2)) + "% of flights on time ", 465, 280);
-    text((nf(((float)cancelled/total)*100,0,2)) + "% of flights cancelled ", 465, 300);
-    text("<0.01% of flights diverted ", 465, 320);
+    text((nf(((float)cancelled/total)*100,0,2)) + "% of flights cancelled ", 465, 320);
+    text("<0.01% of flights diverted ", 465, 360);
  }
 
   void getData(){

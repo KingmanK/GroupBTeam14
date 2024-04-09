@@ -26,6 +26,7 @@ void setup() {
  fileReader(dataFile);
  size(1280, 720);
  img = loadImage("backarrow.png");
+
  Widget busiestDestinations, flightStatus, searchBar, backwardsButton;
  PFont myFont = loadFont("AmericanTypewriter-12.vlw");
  textFont(myFont);
@@ -65,7 +66,7 @@ void setup() {
 
 void draw(){
     background(0);
-  PFont myFont = loadFont("AmericanTypewriter-12.vlw");
+  PFont myFont = loadFont("Rockwell-15.vlw");
   textFont(myFont);
   int margin = 0;
   for (int i = 0; i < displayData.size(); i++) {
@@ -80,17 +81,23 @@ void draw(){
     PieChart.draw();
   }
   
+
   if (currentScreen == pieChartScreen || currentScreen == busiestDestinationScreen){
+
   image(img, 0, 0);
   }
 
   /*for (Textbox t : textboxes) {
    t.DRAW();
    }*/
+
   if (currentScreen == searchBarScreen) {
     textSize(25);
+
     fill(255);
-    text("Search bar", 570, 140);
+    myFont = loadFont("Rockwell-40.vlw");
+    textFont(myFont);
+    text("Search Bar", 540, 140);
     TB.draw();
   }
   
@@ -129,8 +136,10 @@ void mousePressed() {
 
 void mouseMoved() {
   currentScreen.mouseMoved();
+
   if (currentScreen == pieChartScreen || currentScreen == busiestDestinationScreen){
   image(img, 0, 0);
+
   }
 }
 void fileReader(Table data) {
@@ -273,8 +282,9 @@ void keyPressed() {
       }*/
       if(currentScreen == busiestDestinationScreen)
       {
-      textSize(18);
-      text("Busiest Destination: " + maxStr, 400, 10+11);
-      text("Amount of flights: " + maxValue, 400, 10+30);
+      PFont myFont = loadFont("Rockwell-40.vlw");
+      textFont(myFont);
+      text("Busiest Destination: " + maxStr, 400, 10+50);
+      text("Amount of flights: " + maxValue, 400, 10+100);
       }
 }
