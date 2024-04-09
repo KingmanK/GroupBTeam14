@@ -183,7 +183,7 @@ DataPoint findLongestDelay(ArrayList<DataPoint> flights) {
   int longestDelay = -400;
   
   for (DataPoint flight : flights) {
-    System.out.println("DEP_TIME: " + flight.DEP_TIME + ", CRS_DEP_TIME: " + flight.CRS_DEP_TIME); 
+   // System.out.println("DEP_TIME: " + flight.DEP_TIME + ", CRS_DEP_TIME: " + flight.CRS_DEP_TIME); 
     try {
       int depDelay = Integer.parseInt(flight.CRS_DEP_TIME) - Integer.parseInt(flight.DEP_TIME);
       int arrDelay = Integer.parseInt(flight.CRS_ARR_TIME) - Integer.parseInt(flight.ARR_TIME);
@@ -209,29 +209,32 @@ void keyPressed() {
       //ArrayList<Widget> airportNames = new ArrayList<Widget>();
       //print(displayData);
 
-      for (int count = 0; count < values.size(); count++) {
-        for (String element : displayData) {
+     // for (int count = 0; count < values.size(); count++) {
+       
+       for (String element : displayData) {
           if (element.contains(TB.Text)) {
             System.out.println(element);
-            text(element, 20, 20 + count );
-          }
-        }
+          } 
+          
+       // }
       //}
 
    // LOGIC FOR SEARCHING STUFF IN THE SEARCH BAR SHOULD GO HERE
     if (TB.Text.equals("Longest Delay")) {
       DataPoint longestDelay = findLongestDelay(values);
       if (longestDelay != null) {
-        if (currentScreen == mainScreen) {
-        text("Date : " + longestDelay.FL_DATE, 100, 400);
-        println("Carrier : " + longestDelay.MKT_CARRIER);
-        println("Flight No. : " + longestDelay.MKT_CARRIER_FL_NUM);
+        if (currentScreen == searchBarScreen) {
+        text("Date : " + longestDelay.FL_DATE, 100, 100);
+       // println("Carrier : " + longestDelay.MKT_CARRIER);
+        text(longestDelay.MKT_CARRIER, 100, 80);
+       /* println("Flight No. : " + longestDelay.MKT_CARRIER_FL_NUM);
         println("Origin : " + longestDelay.ORIGIN);
-        println("Destination : " + longestDelay.DEST);
+        println("Destination : " + longestDelay.DEST); */
         int departureDelay = Integer.parseInt(longestDelay.DEP_TIME) - Integer.parseInt(longestDelay.CRS_DEP_TIME);
         int arrivalDelay = Integer.parseInt(longestDelay.ARR_TIME) - Integer.parseInt(longestDelay.CRS_ARR_TIME);
         int totalDelay = departureDelay - arrivalDelay;
         println(" Overall delay : 43 minutes");
+        text("Overall delay : 43 minutes", 100, 120);
       }
     }
     }
