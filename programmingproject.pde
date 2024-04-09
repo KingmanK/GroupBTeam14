@@ -31,13 +31,13 @@ void setup() {
  PFont myFont = loadFont("AmericanTypewriter-12.vlw");
  textFont(myFont);
  busiestDestinations=new Widget(350, 340, 180, 40,
- "Busiest Destinations", color(240, 120, 120), stdFont, EVENT_BUTTON1);
+ "Busiest Destinations", color(240, 120, 120), stdFont, EVENT_BUTTON1, true);
  flightStatus=new Widget(550, 340, 180, 40,
- "Flight Status", color(120, 240, 120), stdFont, EVENT_FORWARD);
+ "Flight Status", color(120, 240, 120), stdFont, EVENT_FORWARD, true);
  searchBar=new Widget(750, 340, 180, 40,
- "Search Bar", color(120, 120, 240), stdFont, EVENT_BUTTON2);
+ "Search Bar", color(120, 120, 240), stdFont, EVENT_BUTTON2, true);
  backwardsButton=new Widget(0, 0, 53, 27,
- "<---", color(0, 200, 200), stdFont, EVENT_BACKWARD);
+ "<---", color(0, 200, 200), stdFont, EVENT_BACKWARD, true);
 
  widgetList.add(busiestDestinations);
  widgetList.add(flightStatus);
@@ -205,7 +205,7 @@ void keyPressed() {
     println(TB.Text);
     TB.selected = false;
 
-    for (int j = 0; j < values.size(); j++) {
+    //for (int j = 0; j < values.size(); j++) {
       //ArrayList<Widget> airportNames = new ArrayList<Widget>();
       //print(displayData);
 
@@ -213,9 +213,10 @@ void keyPressed() {
         for (String element : displayData) {
           if (element.contains(TB.Text)) {
             System.out.println(element);
+            text(element, 20, 20 + count );
           }
         }
-      }
+      //}
 
    // LOGIC FOR SEARCHING STUFF IN THE SEARCH BAR SHOULD GO HERE
     if (TB.Text.equals("Longest Delay")) {
