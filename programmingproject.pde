@@ -45,6 +45,8 @@ void setup() {
 
  widgetList.add(busiestDestinations);
  widgetList.add(flightStatus);
+ 
+
 
  mainScreen = new Screen(color(150));
  pieChartScreen = new Screen(color(150));
@@ -55,6 +57,7 @@ void setup() {
  mainScreen.add(flightStatus);
  mainScreen.add(searchBar);
  pieChartScreen.add(backwardsButton);
+ searchBarScreen.add(backwardsButton);
  busiestDestinationScreen.add(backwardsButton);
  currentScreen = mainScreen;
  
@@ -97,7 +100,7 @@ void draw(){
 
   if (currentScreen == searchBarScreen) {
     textSize(25);
-
+     //widgetList.add(backwardsButton);
     fill(255);
     myFont = loadFont("Rockwell-40.vlw");
     textFont(myFont);
@@ -267,9 +270,10 @@ void keyPressed() {
       }*/
       if(currentScreen == busiestDestinationScreen)
       {
-      PFont myFont = loadFont("AmericanTypewriter-12.vlw");
-      textFont(myFont);
-      text("Busiest Destination: " + maxStr, 400, 10+50);
-      text("Amount of flights: " + maxValue, 400, 10+100);
+        PFont myFont = loadFont("AmericanTypewriter-12.vlw");
+        textFont(myFont);
+        text("Busiest Destination: " + maxStr, 400, 10+50);
+        text("Amount of flights: " + maxValue, 400, 10+100);
       }
+ 
 }
