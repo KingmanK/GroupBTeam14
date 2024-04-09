@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Map.*;
 import java.util.Set;
 
+boolean longestDelayBool = false;
 String longestDelayInfo = "";
 Table dataFile;
 PImage img;
@@ -105,7 +106,9 @@ void draw(){
   }
   
   busiestRoutes();
-  text(longestDelayInfo, 100, 120);
+  if (TB.Text.equals("Longest Delay")) {
+    text(longestDelayInfo, 500, 500);
+  }
 }
 
 
