@@ -6,7 +6,6 @@ import java.util.Map.*;
 import java.util.Set;
 
 Table dataFile;
-PImage img;
 pieChart PieChart;
 int total;
 ArrayList<String> displayData;
@@ -17,42 +16,40 @@ final int EVENT_FORWARD=2;
 final int EVENT_BUTTON2=3;
 final int EVENT_BACKWARD=4;
 final int EVENT_NULL=0;
-Screen currentScreen, mainScreen, pieChartScreen, busiestDestinationScreen, searchBarScreen;
+Screen currentScreen, screen1, screen2, screen3;
 Textbox TB;
+//ArrayList<Textbox> textboxes = new ArrayList<Textbox>();
 ArrayList<DataPoint> values = new ArrayList<DataPoint>();
 
 void setup() {
  dataFile = loadTable("flights2k.csv");
  fileReader(dataFile);
  size(1280, 720);
- img = loadImage("backarrow.png");
-
- Widget busiestDestinations, flightStatus, searchBar, backwardsButton;
- PFont myFont = loadFont("AmericanTypewriter-12.vlw");
+ Widget widget1, widget2, widget3, widget4;
+ PFont myFont = loadFont("Arial-Black-28.vlw");
  textFont(myFont);
- busiestDestinations=new Widget(350, 340, 180, 40,
- "Busiest Destinations", color(240, 120, 120), stdFont, EVENT_BUTTON1, true);
- flightStatus=new Widget(550, 340, 180, 40,
- "Flight Status", color(120, 240, 120), stdFont, EVENT_FORWARD, true);
- searchBar=new Widget(750, 340, 180, 40,
- "Search Bar", color(120, 120, 240), stdFont, EVENT_BUTTON2, true);
- backwardsButton=new Widget(0, 0, 53, 27,
- "<---", color(0, 200, 200), stdFont, EVENT_BACKWARD, true);
+ widget1=new Widget(100, 100, 180, 40,
+ "Busiest Destinations", color(200, 0, 0), stdFont, EVENT_BUTTON1);
+ widget2=new Widget(100, 200, 180, 40,
+ "Forward", color(0, 200, 0), stdFont, EVENT_FORWARD);
+ widget3=new Widget(100, 100, 180, 40,
+ "Button 2", color(0,0,200), stdFont, EVENT_BUTTON2);
+ widget4=new Widget(100, 200, 180, 40,
+ "Backward", color(0,200,200), stdFont, EVENT_BACKWARD);
+ 
+ widgetList.add(widget1);
+ widgetList.add(widget2);
 
- widgetList.add(busiestDestinations);
- widgetList.add(flightStatus);
+ screen1 = new Screen(color(70));
+ screen2 = new Screen(color(150));
+ screen3 = new Screen(color(255));
 
- mainScreen = new Screen(color(150));
- pieChartScreen = new Screen(color(150));
- busiestDestinationScreen = new Screen(color(150));
- searchBarScreen = new Screen(color(150));
-
- mainScreen.add(busiestDestinations);
- mainScreen.add(flightStatus);
- mainScreen.add(searchBar);
- pieChartScreen.add(backwardsButton);
- busiestDestinationScreen.add(backwardsButton);
- currentScreen = mainScreen;
+ screen1.add(widget1);
+ screen1.add(widget2);
+ screen2.add(widget3);
+ screen2.add(widget4);
+ screen3.add(widget4);
+ currentScreen = screen1;
  
  PieChart = new pieChart();
  total = dataFile.getRowCount();
@@ -66,7 +63,7 @@ void setup() {
 
 void draw(){
     background(0);
-  PFont myFont = loadFont("Rockwell-15.vlw");
+  PFont myFont = loadFont("Arial-Black-18.vlw");
   textFont(myFont);
   int margin = 0;
   for (int i = 0; i < displayData.size(); i++) {
@@ -77,29 +74,15 @@ void draw(){
 
   currentScreen.draw();
 
-  if (currentScreen == pieChartScreen) {
+  if (currentScreen == screen2) {
     PieChart.draw();
-  }
-  
-
-  if (currentScreen == pieChartScreen || currentScreen == busiestDestinationScreen){
-
-  image(img, 0, 0);
   }
 
   /*for (Textbox t : textboxes) {
    t.DRAW();
    }*/
 
-  if (currentScreen == searchBarScreen) {
-    textSize(25);
-
-    fill(255);
-    myFont = loadFont("Rockwell-40.vlw");
-    textFont(myFont);
-    text("Search Bar", 540, 140);
-    TB.draw();
-  }
+  TB.DRAW();
   
   busiestRoutes();
 }
@@ -110,19 +93,18 @@ void mousePressed() {
   switch(currentScreen.getEvent(mouseX, mouseY)) {
   case EVENT_BUTTON1:
     println("Busiest Destinations!"); 
-    currentScreen = busiestDestinationScreen;
+    currentScreen = screen3;
     break;
   case EVENT_BUTTON2:
-    println("Search Bar");
-    currentScreen = searchBarScreen;
+    println("button 2!");
     break;
   case EVENT_FORWARD:
-    println("Flight Status");
-    currentScreen = pieChartScreen;
+    println("Flights status");
+    currentScreen = screen2;
     break;
   case EVENT_BACKWARD:
-    println("Backward");
-    currentScreen = mainScreen;
+    println("backward");
+    currentScreen = screen1;
     break;
   }
 
@@ -136,11 +118,6 @@ void mousePressed() {
 
 void mouseMoved() {
   currentScreen.mouseMoved();
-
-  if (currentScreen == pieChartScreen || currentScreen == busiestDestinationScreen){
-  image(img, 0, 0);
-
-  }
 }
 void fileReader(Table data) {
 
@@ -183,8 +160,8 @@ DataPoint findLongestDelay(ArrayList<DataPoint> flights) {
   int longestDelay = -400;
   
   for (DataPoint flight : flights) {
-   // System.out.println("DEP_TIME: " + flight.DEP_TIME + ", CRS_DEP_TIME: " + flight.CRS_DEP_TIME); 
-   try {
+    System.out.println("DEP_TIME: " + flight.DEP_TIME + ", CRS_DEP_TIME: " + flight.CRS_DEP_TIME); 
+    try {
       int depDelay = Integer.parseInt(flight.CRS_DEP_TIME) - Integer.parseInt(flight.DEP_TIME);
       int arrDelay = Integer.parseInt(flight.CRS_ARR_TIME) - Integer.parseInt(flight.ARR_TIME);
       int totalDelay = depDelay + arrDelay;
@@ -205,39 +182,37 @@ void keyPressed() {
     println(TB.Text);
     TB.selected = false;
 
-    //for (int j = 0; j < values.size(); j++) {
-      //ArrayList<Widget> airportNames = new ArrayList<Widget>();
-      //print(displayData);
-
-     // for (int count = 0; count < values.size(); count++) {
-       
-       for (String element : displayData) {
-          if (element.contains(TB.Text)) {
-            System.out.println(element);
-          } 
-          
-       // }
-      //}
-
-   // LOGIC FOR SEARCHING STUFF IN THE SEARCH BAR SHOULD GO HERE
+    // LOGIC FOR SEARCHING STUFF IN THE SEARCH BAR SHOULD GO HERE
     if (TB.Text.equals("Longest Delay")) {
       DataPoint longestDelay = findLongestDelay(values);
       if (longestDelay != null) {
-        if (currentScreen == searchBarScreen) {
-        text("Date : " + longestDelay.FL_DATE, 100, 100);
-       // println("Carrier : " + longestDelay.MKT_CARRIER);
-        text(longestDelay.MKT_CARRIER, 100, 80);
-       /* println("Flight No. : " + longestDelay.MKT_CARRIER_FL_NUM);
+        if (currentScreen == screen1) {
+        text("Date : " + longestDelay.FL_DATE, 100, 400);
+        println("Carrier : " + longestDelay.MKT_CARRIER);
+        println("Flight No. : " + longestDelay.MKT_CARRIER_FL_NUM);
         println("Origin : " + longestDelay.ORIGIN);
-        println("Destination : " + longestDelay.DEST); */
+        println("Destination : " + longestDelay.DEST);
         int departureDelay = Integer.parseInt(longestDelay.DEP_TIME) - Integer.parseInt(longestDelay.CRS_DEP_TIME);
         int arrivalDelay = Integer.parseInt(longestDelay.ARR_TIME) - Integer.parseInt(longestDelay.CRS_ARR_TIME);
         int totalDelay = departureDelay - arrivalDelay;
         println(" Overall delay : 43 minutes");
-        text("Overall delay : 43 minutes", 100, 120);
       }
     }
     }
+
+    for (int j = 0; j < values.size(); j++) {
+      //ArrayList<Widget> airportNames = new ArrayList<Widget>();
+      //print(displayData);
+
+      for (int count = 0; count < values.size(); count++) {
+        for (String element : displayData) {
+          if (element.contains(TB.Text)) {
+            System.out.println(element);
+          }
+        }
+      }
+
+
      
     }
   }
@@ -284,11 +259,10 @@ void keyPressed() {
       for (int count2 =0 ; count2 < maxStrArr.length; count2++) {
           text("Busiest Destination: " + maxStrArr[count2], 400, 10+11*count2);
       }*/
-      if(currentScreen == busiestDestinationScreen)
+      if(currentScreen == screen3)
       {
-      PFont myFont = loadFont("AmericanTypewriter-12.vlw");
-      textFont(myFont);
-      text("Busiest Destination: " + maxStr, 400, 10+50);
-      text("Amount of flights: " + maxValue, 400, 10+100);
+      textSize(18);
+      text("Busiest Destination: " + maxStr, 400, 10+11);
+      text("Amount of flights: " + maxValue, 400, 10+30);
       }
 }
