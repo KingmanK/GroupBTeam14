@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Map.*;
 import java.util.Set;
 
+String longestDelayInfo = "";
 Table dataFile;
 PImage img;
 //7tvu8tvguyv
@@ -67,8 +68,8 @@ void setup() {
 }
 
 void draw(){
-    background(0);
-  PFont myFont = loadFont("Rockwell-15.vlw");
+   background(0);
+    PFont myFont = loadFont("Rockwell-15.vlw");
   textFont(myFont);
   int margin = 0;
   for (int i = 0; i < displayData.size(); i++) {
@@ -104,6 +105,7 @@ void draw(){
   }
   
   busiestRoutes();
+  text(longestDelayInfo, 100, 120);
 }
 
 
@@ -183,22 +185,22 @@ void fileReader(Table data) {
 DataPoint findLongestDelay(ArrayList<DataPoint> flights) {
   DataPoint longestDelayFlight = null;
   int longestDelay = -400;
-  
+
   for (DataPoint flight : flights) {
-   // System.out.println("DEP_TIME: " + flight.DEP_TIME + ", CRS_DEP_TIME: " + flight.CRS_DEP_TIME); 
-   try {
+    try {
       int depDelay = Integer.parseInt(flight.CRS_DEP_TIME) - Integer.parseInt(flight.DEP_TIME);
       int arrDelay = Integer.parseInt(flight.CRS_ARR_TIME) - Integer.parseInt(flight.ARR_TIME);
       int totalDelay = depDelay + arrDelay;
-      
+
       if (totalDelay > longestDelay) {
         longestDelay = totalDelay;
         longestDelayFlight = flight;
       }
     } catch (NumberFormatException e) {
-      println("NumberFormatException occurred: " + e.getMessage()); 
+      println("NumberFormatException occurred: " + e.getMessage());
     }
   }
+
   return longestDelayFlight;
 }
  
@@ -206,44 +208,18 @@ void keyPressed() {
   if (keyCode == ENTER) {
     println(TB.Text);
     TB.selected = false;
-
-    //for (int j = 0; j < values.size(); j++) {
-      //ArrayList<Widget> airportNames = new ArrayList<Widget>();
-      //print(displayData);
-
-     // for (int count = 0; count < values.size(); count++) {
-       
-       for (String element : displayData) {
-          if (element.contains(TB.Text)) {
-            System.out.println(element);
-          } 
-          
-       // }
-      //}
-
-   // LOGIC FOR SEARCHING STUFF IN THE SEARCH BAR SHOULD GO HERE
-    if (TB.Text.equals("Longest Delay")) {
-      DataPoint longestDelay = findLongestDelay(values);
-      if (longestDelay != null) {
-        if (currentScreen == searchBarScreen) {
-        text("Date : " + longestDelay.FL_DATE, 100, 100);
-       // println("Carrier : " + longestDelay.MKT_CARRIER);
-        text(longestDelay.MKT_CARRIER, 100, 80);
-       /* println("Flight No. : " + longestDelay.MKT_CARRIER_FL_NUM);
-        println("Origin : " + longestDelay.ORIGIN);
-        println("Destination : " + longestDelay.DEST); */
-        int departureDelay = Integer.parseInt(longestDelay.DEP_TIME) - Integer.parseInt(longestDelay.CRS_DEP_TIME);
-        int arrivalDelay = Integer.parseInt(longestDelay.ARR_TIME) - Integer.parseInt(longestDelay.CRS_ARR_TIME);
-        int totalDelay = departureDelay - arrivalDelay;
-        println(" Overall delay : 43 minutes");
-        text("Overall delay : 43 minutes", 100, 120);
-      }
-    }
-    }
-     
-    }
+    
+ if (TB.Text.equals("Longest Delay")) {
+  DataPoint longestDelay = findLongestDelay(values);
+  if (longestDelay != null) {
+    longestDelayInfo = "Date: " + longestDelay.FL_DATE + "\n" +
+                       longestDelay.MKT_CARRIER + "\n" +
+                       "Overall Delay: " + (Integer.parseInt(longestDelay.DEP_TIME) - Integer.parseInt(longestDelay.CRS_DEP_TIME) +
+                                           Integer.parseInt(longestDelay.ARR_TIME) - Integer.parseInt(longestDelay.CRS_ARR_TIME)) + " minutes";
   }
-   TB.KeyPressed(key, keyCode);
+}
+  }
+  TB.KeyPressed(key, keyCode);
 }
    
    void busiestRoutes() {
