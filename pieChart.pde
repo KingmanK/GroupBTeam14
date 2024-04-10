@@ -8,16 +8,17 @@ class PieChart {
   
   void draw() {
     //Creates pie chart text
-    PFont pieFont = loadFont("AmericanTypewriter-12.vlw");
-    textSize(18);
+    PFont pieFont = loadFont("AmericanTypewriter-28.vlw");
+    //textSize(28);
 
     textFont(pieFont);
+    textSize(28);
     calculateAngles();
-    pie_chart(150, angles);
+    pie_chart(250, angles);
     fill(245);
-    text((nf(((float)onTime/total)*100,0,2)) + "% of flights on time ", 465, 280);
-    text((nf(((float)cancelled/total)*100,0,2)) + "% of flights cancelled ", 465, 320);
-    text("<0.01% of flights diverted ", 465, 360);
+    text((nf(((float)onTime/total)*100,0,2)) + "% of flights are on time ", 445, 375);
+    text((nf(((float)cancelled/total)*100,0,2)) + "% of flights have been cancelled ", 445, 415);
+    text("<0.01% of flights have been diverted ", 445, 455);
   }
   
   //Retrievs pie chart data
@@ -57,7 +58,7 @@ class PieChart {
       float gray = map(i, 0, data.length, 0, 255);
       fill(gray);
       noStroke();
-      arc(580, 300-diameter, diameter, diameter, lastAngle, lastAngle+radians((float)data[i]));
+      arc(580, 450-diameter, diameter, diameter, lastAngle, lastAngle+radians((float)data[i]));
       lastAngle += radians((float)data[i]);
     }
   }   
