@@ -175,7 +175,7 @@
       float angle1 = radians(-90);
       translate(50, 400);
       rotate(angle1);
-      text("Amount of Late Flights", 0, 0);
+      text("Number of Late Flights", 0, 0);
       popMatrix();
       pushMatrix();
       for (int count = 0; count < 12 + 1; count++ ) {
@@ -219,7 +219,7 @@
       float angle1 = radians(-90);
       translate(50, 400);
       rotate(angle1);
-      text("Amount of Flights", 0, 0);
+      text("Number of Flights", 0, 0);
       popMatrix();
       pushMatrix();
       for (int count = 0; count < 12 + 1; count++ ) {
