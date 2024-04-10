@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Map.*;
 import java.util.Set;
 
+
 boolean isLongestDelayAdded = false;
 boolean longestDelayBool = false;
 String longestDelayInfo = "";
@@ -45,7 +46,7 @@ void setup() {
  searchBar=new Widget(750, 340, 180, 40,
  "Search Bar", color(120, 120, 240), stdFont, EVENT_BUTTON2, true);
  backwardsButton=new Widget(0, 0, 53, 27,
- "<---", color(0, 200, 200), stdFont, EVENT_BACKWARD, true);
+ "", color(0, 200, 200), stdFont, EVENT_BACKWARD, true);
  busiestAirport = new Widget(150, 340, 180, 40,
  "Busiest Airport", color(250, 240, 120), stdFont, EVENT_BUTTONBUSIESTAIRPORT, true);
 
@@ -84,8 +85,8 @@ void setup() {
 }
 
 void draw(){
-   background(0);
-    PFont myFont = loadFont("Rockwell-15.vlw");
+  background(0);
+  PFont myFont = loadFont("Rockwell-15.vlw");
   textFont(myFont);
   int margin = 0;
   for (int i = 0; i < displayData.size(); i++) {
@@ -101,9 +102,7 @@ void draw(){
   }
   
 
-  if (currentScreen == pieChartScreen || currentScreen == busiestDestinationScreen ||currentScreen == busiestAirportScreen
-  ||currentScreen == searchBarScreen) {
-
+  if (currentScreen != mainScreen) {
     image(img, 0, 0);
   }
 
@@ -193,10 +192,9 @@ void mousePressed() {
 void mouseMoved() {
   currentScreen.mouseMoved();
 
-  if (currentScreen == pieChartScreen || currentScreen == busiestDestinationScreen){
+  /*if (currentScreen != mainScreen){
   image(img, 0, 0);
-
-  }
+  }*/
 }
 void fileReader(Table data) {
 
@@ -237,9 +235,16 @@ void fileReader(Table data) {
 DataPoint findLongestDelay(ArrayList<DataPoint> flights) {
   DataPoint longestDelayFlight = null;
   int longestDelay = -400;
+  boolean firstFlightSkipped = false;
 
+  
   for (DataPoint flight : flights) {
-    try {
+    if (!firstFlightSkipped) {
+            firstFlightSkipped = true;
+            continue; // Skip the first flight and continue to the next iteration
+        }
+        
+    if (flight.DEP_TIME != null && !flight.DEP_TIME.isEmpty() && flight.CRS_DEP_TIME != null && !flight.CRS_DEP_TIME.isEmpty() && flight.ARR_TIME != null && !flight.ARR_TIME.isEmpty() && flight.CRS_ARR_TIME != null && !flight.CRS_ARR_TIME.isEmpty()){
       int depDelay = Integer.parseInt(flight.CRS_DEP_TIME) - Integer.parseInt(flight.DEP_TIME);
       int arrDelay = Integer.parseInt(flight.CRS_ARR_TIME) - Integer.parseInt(flight.ARR_TIME);
       int totalDelay = depDelay + arrDelay;
@@ -248,8 +253,6 @@ DataPoint findLongestDelay(ArrayList<DataPoint> flights) {
         longestDelay = totalDelay;
         longestDelayFlight = flight;
       }
-    } catch (NumberFormatException e) {
-      println("");
     }
   }
 
