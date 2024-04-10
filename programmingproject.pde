@@ -447,7 +447,7 @@ void keyPressed() {
         text("Busiest City", 480, 150);
         textSize(25);
         text("Busiest Destination: " + maxStr, 430, 200+50);
-        text("Amount of flights: " + maxValue, 430, 200+75);
+        text("Number of flights: " + maxValue, 430, 200+75);
       }
    } 
    
