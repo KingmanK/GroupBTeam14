@@ -23,7 +23,6 @@ class BusiestStates {
   void updateAirportCount(String airport) {
     if (airportCounts.containsKey(airport)) {
       int count = airportCounts.get(airport);
-      println(count);
       airportCounts.put(airport, count + 1);
     } else {
       airportCounts.put(airport, 1);

@@ -8,6 +8,16 @@
   
   boolean isLongestDelayAdded = false;
   boolean longestDelayBool = false;
+  boolean flightsInRangeBool = false;
+  String date1 = "";
+  String date2 = "";
+  int month1;
+  int day1;
+  int year1;
+  int month2;
+  int day2;
+  int year2;
+  int flightsInRange = 0;
   String longestDelayInfo = "";
   Table dataFile;
   PImage img;
@@ -25,10 +35,12 @@
   final int EVENT_BACKWARD=4;
   final int EVENT_BUTTONLATEFLIGHT=5;
   final int EVENT_BUTTONBUSIESTSTATE=6;
+  final int EVENT_BUTTONDATERANGE=7;
   final int EVENT_NULL=0;
   Screen currentScreen, mainScreen, pieChartScreen, busiestDestinationScreen, 
-  searchBarScreen, lateFlightScreen, busiestStateScreen;
+  searchBarScreen, lateFlightScreen, busiestStateScreen, dateRangeScreen; 
   Textbox TB;
+  Textbox TBDateRange;
   ArrayList<DataPoint> values = new ArrayList<DataPoint>();
   
   void setup() {
@@ -37,7 +49,7 @@
     fileReader(dataFile);
     img = loadImage("backarrow.png");
     textAlign(LEFT);
-    Widget busiestDestinations, flightStatus, searchBar, backwardsButton, lateFlight, busiestState;
+    Widget busiestDestinations, flightStatus, searchBar, backwardsButton, lateFlight, busiestState, dateRange;
     PFont myFont = loadFont("AmericanTypewriter-12.vlw");
     PFont mainFont = loadFont("Arial-Black-80.vlw");
     busiestDestinations=new Widget(5, 5, 630, 233,
@@ -52,33 +64,39 @@
     "Late Flights", color(120, 120, 240), stdFont, EVENT_BUTTONLATEFLIGHT, true);
     busiestState = new Widget(5, 482, 630, 233,
     "Busiest States", color(250, 240, 120), stdFont, EVENT_BUTTONBUSIESTSTATE, true);
-    //Date range button color (green): 120, 240, 120
+    dateRange = new Widget(645, 482, 630, 233,
+    "Date Ranges", color(120, 240, 120), stdFont, EVENT_BUTTONDATERANGE, true);
     widgetList.add(busiestDestinations);
     widgetList.add(flightStatus);
     widgetList.add(lateFlight);
     widgetList.add(busiestState);
+    widgetList.add(dateRange);
     mainScreen = new Screen(color(150));
     pieChartScreen = new Screen(color(150));
     busiestDestinationScreen = new Screen(color(150));
     searchBarScreen = new Screen(color(150));
     lateFlightScreen = new Screen(color(150));
     busiestStateScreen = new Screen(color(150));
+    dateRangeScreen = new Screen(color(150));
     mainScreen.add(busiestDestinations);
     mainScreen.add(flightStatus);
     mainScreen.add(searchBar);
     mainScreen.add(lateFlight);
     mainScreen.add(busiestState);
+    mainScreen.add(dateRange);
     pieChartScreen.add(backwardsButton);
     searchBarScreen.add(backwardsButton);
     busiestDestinationScreen.add(backwardsButton);
     lateFlightScreen.add(backwardsButton);
     busiestStateScreen.add(backwardsButton);
+    dateRangeScreen.add(backwardsButton);
     currentScreen = mainScreen;
     pieChart = new PieChart();
     total = dataFile.getRowCount();
     noStroke();
     pieChart.getData();
     TB = new Textbox(540,  325,  35,  200);
+    TBDateRange = new Textbox(540,  325,  35,  200);
     Table data = loadTable("flights2k.csv", "header");
     lateFlights = new LateFlights(data);
     busiestStates = new BusiestStates(data);
@@ -101,7 +119,7 @@
       pieChart.draw();
     }
     if (currentScreen == pieChartScreen || currentScreen == busiestDestinationScreen 
-    || currentScreen == lateFlightScreen ||currentScreen == searchBarScreen || currentScreen == busiestStateScreen) {
+    || currentScreen == lateFlightScreen ||currentScreen == searchBarScreen || currentScreen == busiestStateScreen || currentScreen == dateRangeScreen) {
       image(img, 0, 0); // Image for backspace
     }
     if (currentScreen == searchBarScreen) {
@@ -112,6 +130,15 @@
       textFont(myFont);
       text("Search Bar", 540, 140);
       TB.draw();
+    }  
+    if (currentScreen == dateRangeScreen) {
+      textSize(25);
+      fill(255);
+      myFont = loadFont("Rockwell-40.vlw");
+      
+      textFont(myFont);
+      text("Search for Flights in Date Range", 350, 140);
+      TBDateRange.draw();
     }  
     if (currentScreen == lateFlightScreen) {
     // Logic for getting data to bar chart
@@ -173,7 +200,7 @@
         int barHeight = (int) map(count, 0, maxCount, 0, height/1.55);
         PFont font = loadFont("Rockwell-15.vlw");
         textFont(font); 
-        fill(0, 150, 150);
+        fill(155, 10, 10);
         noStroke();
         rect(x, height - barHeight - 50, barWidth, barHeight);
         fill(0);
@@ -222,7 +249,25 @@
         text(longestDelayInfo, 500, 500);
       }
     }
-  }  
+    }
+    if (currentScreen == dateRangeScreen) {
+      textSize(25);
+      fill(255);
+      myFont = loadFont("Rockwell-40.vlw");
+      textFont(myFont);
+      TBDateRange.draw();
+    if (flightsInRangeBool) {
+      fill(255);
+      myFont = loadFont("Rockwell-40.vlw");
+        textSize(25);
+        fill(0);
+        rect(400, 400, 500, 200);
+        fill(255);
+        textFont(myFont);
+        textSize(25);
+        text("Flights in Date Range: " + flightsInRange, 500, 500);
+    }
+    }
 }
 void mousePressed() {
    //scrollingList.mousePressed();
@@ -247,12 +292,17 @@ void mousePressed() {
     println("Busiest States");
     currentScreen = busiestStateScreen;
     break;
+  case EVENT_BUTTONDATERANGE:
+    println("Date Ranges");
+    currentScreen = dateRangeScreen;
+    break;
   case EVENT_BACKWARD:
     println("Backward");
     currentScreen = mainScreen;
     break;
   }
   TB.pressed(mouseX, mouseY);
+  TBDateRange.pressed(mouseX, mouseY);
   
 }
 
@@ -320,11 +370,10 @@ DataPoint findLongestDelay(ArrayList<DataPoint> flights) {
 }
  
 void keyPressed() {
-  if (keyCode == ENTER) {
+  if (keyCode == ENTER && currentScreen == searchBarScreen) {
     // Basic Functionality for Search Bar
     println(TB.Text);
     TB.selected = false;
-    String searchText = TB.Text;
 
     // Functionality for Longest Delay
     if (TB.Text.equalsIgnoreCase("Longest Delay")) {
@@ -338,7 +387,25 @@ void keyPressed() {
       }
     }
   }
+  if (keyCode == ENTER && currentScreen == dateRangeScreen) {
+       
+       if (date1 == "") {
+         date1 = TBDateRange.Text;
+       }
+       else if (date2 == "") {
+         date2 = TBDateRange.Text;
+       }
+       else {
+         findFlightsInRange();
+         println("Flights in Date Range: " + flightsInRange);
+         flightsInRangeBool = true;
+         
+         date1 = "";
+         date2 = "";
+       }
+  }
   TB.KeyPressed(key, keyCode);
+  TBDateRange.KeyPressed(key, keyCode);
 }
    void busiestRoutes() {
     String[] destCityArr = new String[values.size()];
@@ -381,3 +448,27 @@ void keyPressed() {
         text("Amount of flights: " + maxValue, 400, 200+75);
       }
    } 
+   
+   void findFlightsInRange() {
+     month1 = Integer.parseInt(date1.substring(0, 2));
+     day1 = Integer.parseInt(date1.substring(3, 5));
+     year1 = Integer.parseInt(date1.substring(6, 10));
+     
+     month2 = Integer.parseInt(date2.substring(0, 2));
+     day2 = Integer.parseInt(date2.substring(3, 5));
+     year2 = Integer.parseInt(date2.substring(6, 10));
+         
+     for (int i = 1; i < values.size(); i++) {
+       int currentMonth = Integer.parseInt(values.get(i).FL_DATE.substring(0, 2));
+       int currentDay = Integer.parseInt(values.get(i).FL_DATE.substring(3, 5));
+       int currentYear = Integer.parseInt(values.get(i).FL_DATE.substring(6, 10));
+       
+       if (
+       (currentMonth >= month1 && currentMonth <= month2) && 
+       (currentDay >= day1 && currentDay <= day2) && 
+       (currentYear >= year1 && currentYear <= year2)
+       ) {
+         flightsInRange++;
+         }
+       }
+  }
