@@ -1,5 +1,6 @@
 class DataPoint{
   
+  //Instantiates Data Variables
   String FL_DATE;
   String MKT_CARRIER;
   String MKT_CARRIER_FL_NUM;
@@ -19,6 +20,7 @@ class DataPoint{
   String DIVERTED;
   String DISTANCE;
   
+  //Defines Data Variables
   DataPoint(TableRow row){
     FL_DATE = row.getString(0);
     MKT_CARRIER = row.getString(1);
@@ -39,9 +41,6 @@ class DataPoint{
     DIVERTED = row.getString(16);
     DISTANCE = row.getString(17);
   }
-  
-  
-  
 }
 
   
