@@ -443,9 +443,11 @@ void keyPressed() {
       {
         PFont myFont = loadFont("Rockwell-40.vlw");
         textFont(myFont);
+        textSize(40);
+        text("Busiest Cities", 480, 150);
         textSize(25);
-        text("Busiest Destination: " + maxStr, 400, 200+50);
-        text("Amount of flights: " + maxValue, 400, 200+75);
+        text("Busiest Destination: " + maxStr, 430, 200+50);
+        text("Amount of flights: " + maxValue, 430, 200+75);
       }
    } 
    
