@@ -19,7 +19,11 @@ void mouseMoved(){
       }
       aWidget.draw();
     }
+    
+  if (currentScreen != mainScreen){
+    image(img, 0, 0);
   }
+}
 
 void draw(){
  background(screenColor);
