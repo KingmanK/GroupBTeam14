@@ -36,20 +36,21 @@
    fileReader(dataFile);
    
    img = loadImage("backarrow.png");
-  
+
+   textAlign(LEFT);
    Widget busiestDestinations, flightStatus, searchBar, backwardsButton, busiestAirport;
    PFont myFont = loadFont("AmericanTypewriter-12.vlw");
-   textFont(myFont);
-   busiestDestinations=new Widget(350, 340, 180, 40,
-   "Busiest Destinations", color(240, 120, 120), stdFont, EVENT_BUTTON1, true);
-   flightStatus=new Widget(550, 340, 180, 40,
+   PFont mainFont = loadFont("Arial-Black-80.vlw");
+   busiestDestinations=new Widget(5, 5, 630, 350,
+   "Busiest City", color(240, 120, 120), stdFont, EVENT_BUTTON1, true);
+   flightStatus=new Widget(645, 5, 630, 350,
    "Flight Status", color(120, 240, 120), stdFont, EVENT_FORWARD, true);
-   searchBar=new Widget(750, 340, 180, 40,
+   searchBar=new Widget(5, 365, 630, 350,
    "Search Bar", color(120, 120, 240), stdFont, EVENT_BUTTON2, true);
    backwardsButton=new Widget(0, 0, 53, 27,
    "", color(0, 200, 200), stdFont, EVENT_BACKWARD, true);
-   busiestAirport = new Widget(150, 340, 180, 40,
-   "Busiest Airport", color(250, 240, 120), stdFont, EVENT_BUTTONBUSIESTAIRPORT, true);
+   busiestAirport = new Widget(645, 365, 630, 350,
+   "Busiest States", color(250, 240, 120), stdFont, EVENT_BUTTONBUSIESTAIRPORT, true);
   
    widgetList.add(busiestDestinations);
    widgetList.add(flightStatus);
@@ -86,8 +87,10 @@
   
   void draw(){
      background(0);
-     PFont myFont = loadFont("Rockwell-15.vlw");
+    PFont myFont = loadFont("Arial-Black-70.vlw");
+    
     textFont(myFont);
+    //textAlign(CENTER + 100);
     int margin = 0;
     for (int i = 0; i < displayData.size(); i++) {
       text(displayData.get(i), 20, 20 + margin);
@@ -97,9 +100,10 @@
   
     currentScreen.draw();
     if (currentScreen == mainScreen) {
-      myFont = loadFont("Rockwell-15.vlw");
-      textAlign(LEFT);
-      textFont(myFont);
+      
+     // myFont = loadFont("Arial-Black-70.vlw");
+     // textAlign(LEFT);
+      //textFont(myFont);
     }
     if (currentScreen == pieChartScreen) {
       PieChart.draw();
@@ -118,6 +122,7 @@
       textSize(25);
       fill(255);
       myFont = loadFont("Rockwell-40.vlw");
+      
       textFont(myFont);
       text("Search Bar", 540, 140);
       TB.draw();
@@ -139,7 +144,9 @@
       for (String airport : airportCounts.keySet()) {
         int count = airportCounts.get(airport);
         int barHeight = (int) map(count, 0, maxCount, 0, height/1.55);
-  
+        PFont font = loadFont("Rockwell-15.vlw");
+        textFont(font);
+        
         fill(0, 150, 150);
         noStroke();
         rect(x, height - barHeight - 50, barWidth, barHeight);
@@ -147,27 +154,26 @@
         fill(0);
         textAlign(CENTER);
         text(airport, x + barWidth / 2, height - 4  - 50);
-  
+        
         x += barWidth;
       }
       
       myFont = loadFont("Rockwell-40.vlw"); 
       textFont(myFont);
       textSize(60);
-      text("Amount of Flights per Airport (Arr & Dest)", 660, 100);
+      text("Amount of Flights per State (Arr. & Dep.)", 660, 100);
       
       textSize(30);
       text("Airport Name", 660, 700);
-      
-      float angle = 90;
-      float radius;
+    
       
       pushMatrix();
-      text("Amount of Flights", 20, 360);
-      rotate(-angle);
-
+      float angle1 = radians(-90);
+      translate(100, 330);
+      rotate(angle1);
+      text("Amount of Flights", 0, 0);
       popMatrix();
-     
+      textAlign(LEFT);
      
     }  
   busiestRoutes();  

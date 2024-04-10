@@ -10,10 +10,12 @@ class BusiestAirports {
 
   void calculateAirportCounts() {
     for (TableRow row : data.rows()) {
-      String originAirport = row.getString(5);
-      String destAirport = row.getString(9);
-      updateAirportCount(originAirport);
-      updateAirportCount(destAirport);
+      String lateFlights = row.getString(16);
+      String name = row.getString(8);
+      
+      updateAirportCount(name);
+      updateAirportCount(lateFlights);
+      
     }
   }
 
