@@ -14,7 +14,7 @@ the file. - Edmund Akinfaye | DONE
 • Sketch out some designs on paper with your group and bring to thelab to discuss with your demonstrator. - Sergiu, Louis Ye, Louis O'Driscoll | DONE
 • Read in the csv file and store the data (in setup), as for last week. - (done last week)
 • Create a (simple) query result and set this to be the current query (in setup) - Kai and Eddy | DONE
-• Write a method which will draw this query result as a chart (e.g. pie chart). - Adam and Eddy | DONE
+• Write a method which will draw this query result as a chart (e.g. pie chart). - Eddy | DONE
 • Draw the results of this query as a bar chart (in draw), using the method you have defined. - Louis O'Driscoll | DONE
 - WEEK 3 -
 • Implement two different queries (most popular destination - Sergiu & Louis Ye & Adam & selecting a date range - Adam & Eddie & longest delay - Louis O'Driscoll) on the data.
@@ -23,3 +23,4 @@ the file. - Edmund Akinfaye | DONE
 • UI Fixes - Eddy | DONE
 - WEEK 4-
 • Merging and debugging - Kai Kingman, Eddie, Louis Ye
+• Fixed Search Bar issues with displaying data - Adam and Eddy

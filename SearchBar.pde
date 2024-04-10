@@ -28,6 +28,7 @@ class Textbox {
       fill(textColour);
       
       textAlign(LEFT, CENTER);
+      textSize(20);
       text(Text, x + 5, y + 17);
    }
    
