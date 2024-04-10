@@ -1,47 +1,38 @@
 class LateFlights {
   Table data;
-  HashMap<String, Integer> airportCounts;
+  HashMap<String, Integer> stateCounts;
 
+  //Initializes data file and calls methods 
   LateFlights(Table data) {
     this.data = data;
-    airportCounts = new HashMap<>();
-    calculateAirportCounts();
+    stateCounts = new HashMap<>();
+    calculateStateCounts();
   }
-
-  void calculateAirportCounts() {
+  
+  //Calculates the number of times a state has a delayed flight
+  void calculateStateCounts() {
     for (TableRow row : data.rows()) {
+      
+      //Finds the DIVERTED value of a DataPoint
       String lateFlights = row.getString(16);
-      String name;
+      
+      //Checks if DIVERTED is true
       if (lateFlights.equals("1") ) {
-              name = row.getString(9);
-              updateAirportCount(name);              
-      }
-      
-      
-      //updateAirportCount(lateFlights);
-      
-    }
-  }
-
-  void updateAirportCount(String airport) {
-    if (airportCounts.containsKey(airport)) {
-      int count = airportCounts.get(airport);
-      airportCounts.put(airport, count + 1);
-    } else {
-      airportCounts.put(airport, 1);
-    }
-  }
-
-  String findMostPopularAirport() {
-    String mostPopularAirport = "";
-    int maxCount = 0;
-    for (String airport : airportCounts.keySet()) {
-      int count = airportCounts.get(airport);
-      if (count > maxCount) {
-        mostPopularAirport = airport;
-        maxCount = count;
+              //If so, adds the DataPoint to the state count
+              updateStateCount(row.getString(9));              
       }
     }
-    return mostPopularAirport;
+  }
+  
+  //Updates the state count with a given value
+  void updateStateCount(String state) {
+    if (stateCounts.containsKey(state)) {
+      int count = stateCounts.get(state);
+      stateCounts.put(state, count + 1);
+    } 
+    
+    else {
+      stateCounts.put(state, 1);
+    }
   }
 }

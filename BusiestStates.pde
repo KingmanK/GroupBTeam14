@@ -1,44 +1,57 @@
 class BusiestStates {
   Table data;
-  HashMap<String, Integer> airportCounts;
-
+  HashMap<String, Integer> stateCounts;
+  
+  //Initializes data file and calls methods 
   BusiestStates(Table data) {
     this.data = data;
-    airportCounts = new HashMap<>();
-    calculateAirportCounts();
+    stateCounts = new HashMap<>();
+    calculateStateCounts();
   }
-
-  void calculateAirportCounts() {
+  
+  //Calculates the number of times a state is listed as a destination or point of origin
+  void calculateStateCounts() {
     for (TableRow row : data.rows()) {
       
+      //Retrieves state abreviations for the desination and point of origin in a given data point
       String DEST_STATE_ABR = row.getString(5);
       String ORIGIN_STATE_ABR = row.getString(9);
 
-      updateAirportCount(ORIGIN_STATE_ABR);              
-      updateAirportCount(DEST_STATE_ABR);
+      //Updates the state count with these values
+      updateStateCount(ORIGIN_STATE_ABR);              
+      updateStateCount(DEST_STATE_ABR);
       
     }
   }
-
-  void updateAirportCount(String airport) {
-    if (airportCounts.containsKey(airport)) {
-      int count = airportCounts.get(airport);
-      airportCounts.put(airport, count + 1);
-    } else {
-      airportCounts.put(airport, 1);
+  
+  //Updates the state count with a given value
+  void updateStateCount(String state) {
+ 
+    if (stateCounts.containsKey(state)) {
+      int count = stateCounts.get(state);
+      stateCounts.put(state, count + 1);
+    } 
+    
+    else {
+      stateCounts.put(state, 1);
     }
   }
-
-  String findMostPopularAirport() {
-    String mostPopularAirport = "";
+  
+  //Finds the busiest state in the data file
+  String findMostPopularState() {
+    
+    String mostPopularState = "";
     int maxCount = 0;
-    for (String airport : airportCounts.keySet()) {
-      int count = airportCounts.get(airport);
+    
+    for (String state : stateCounts.keySet()) {
+      
+      int count = stateCounts.get(state);
+      
       if (count > maxCount) {
-        mostPopularAirport = airport;
+        mostPopularState = state;
         maxCount = count;
       }
     }
-    return mostPopularAirport;
+    return mostPopularState;
   }
 }
