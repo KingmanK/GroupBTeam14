@@ -1,22 +1,41 @@
-/*class BusiestAirports extends DataPoint {
-  
-  String originStateAbr;
-  String destStateAbr;
-  
-  BusiestAirports(TableRow row) {
-    super(row); // Call the superclass constructor
-    originStateAbr = super.ORIGIN_STATE_ABR;
-    destStateAbr = super.DEST_STATE_ABR;
+class BusiestAirports {
+  Table data;
+  HashMap<String, Integer> airportCounts;
+
+  BusiestAirports(Table data) {
+    this.data = data;
+    airportCounts = new HashMap<>();
+    calculateAirportCounts();
   }
-  int count 
-  void barChartData() {
-    for (int count = 0; count < originStateAbr.length(); count++) {
-      if (originStateAbr.equals("JFK")
-      
+
+  void calculateAirportCounts() {
+    for (TableRow row : data.rows()) {
+      String originAirport = row.getString(5);
+      String destAirport = row.getString(9);
+      updateAirportCount(originAirport);
+      updateAirportCount(destAirport);
     }
   }
-}*/
-  
-  
-  
-  
+
+  void updateAirportCount(String airport) {
+    if (airportCounts.containsKey(airport)) {
+      int count = airportCounts.get(airport);
+      airportCounts.put(airport, count + 1);
+    } else {
+      airportCounts.put(airport, 1);
+    }
+  }
+
+  String findMostPopularAirport() {
+    String mostPopularAirport = "";
+    int maxCount = 0;
+    for (String airport : airportCounts.keySet()) {
+      int count = airportCounts.get(airport);
+      if (count > maxCount) {
+        mostPopularAirport = airport;
+        maxCount = count;
+      }
+    }
+    return mostPopularAirport;
+  }
+}
