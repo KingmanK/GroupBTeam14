@@ -159,9 +159,14 @@
       textSize(30);
       text("Airport Name", 660, 700);
       
-      rotate(90);  
+      float angle = 90;
+      float radius;
+      
+      pushMatrix();
       text("Amount of Flights", 20, 360);
-      rotate(90); 
+      rotate(-angle);
+
+      popMatrix();
      
      
     }  
