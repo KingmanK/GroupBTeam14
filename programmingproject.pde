@@ -1,17 +1,20 @@
 // Group B Team 14 - Programming Project
+import processing.core.PImage;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.*;
 import java.util.Set;
 
+boolean isLongestDelayAdded = false;
 boolean longestDelayBool = false;
 String longestDelayInfo = "";
 Table dataFile;
 PImage img;
-//7tvu8tvguyv
-//gyvyvyg
+
 pieChart PieChart;
+
+
 int total;
 ArrayList<String> displayData;
 ArrayList<Widget> widgetList = new ArrayList<Widget>();
@@ -20,8 +23,9 @@ final int EVENT_BUTTON1=1;
 final int EVENT_FORWARD=2;
 final int EVENT_BUTTON2=3;
 final int EVENT_BACKWARD=4;
+final int EVENT_BUTTONBUSIESTAIRPORT=5;
 final int EVENT_NULL=0;
-Screen currentScreen, mainScreen, pieChartScreen, busiestDestinationScreen, searchBarScreen;
+Screen currentScreen, mainScreen, pieChartScreen, busiestDestinationScreen, searchBarScreen, busiestAirportScreen;
 Textbox TB;
 ArrayList<DataPoint> values = new ArrayList<DataPoint>();
 
@@ -31,7 +35,7 @@ void setup() {
  size(1280, 720);
  img = loadImage("backarrow.png");
 
- Widget busiestDestinations, flightStatus, searchBar, backwardsButton;
+ Widget busiestDestinations, flightStatus, searchBar, backwardsButton, busiestAirport;
  PFont myFont = loadFont("AmericanTypewriter-12.vlw");
  textFont(myFont);
  busiestDestinations=new Widget(350, 340, 180, 40,
@@ -42,24 +46,30 @@ void setup() {
  "Search Bar", color(120, 120, 240), stdFont, EVENT_BUTTON2, true);
  backwardsButton=new Widget(0, 0, 53, 27,
  "<---", color(0, 200, 200), stdFont, EVENT_BACKWARD, true);
+ busiestAirport = new Widget(150, 340, 180, 40,
+ "Busiest Airport", color(250, 240, 120), stdFont, EVENT_BUTTONBUSIESTAIRPORT, true);
 
  widgetList.add(busiestDestinations);
  widgetList.add(flightStatus);
- 
+ widgetList.add(busiestAirport);
 
 
  mainScreen = new Screen(color(150));
  pieChartScreen = new Screen(color(150));
  busiestDestinationScreen = new Screen(color(150));
  searchBarScreen = new Screen(color(150));
+ busiestAirportScreen = new Screen(color(150));
 
  mainScreen.add(busiestDestinations);
  mainScreen.add(flightStatus);
  mainScreen.add(searchBar);
+ mainScreen.add(busiestAirport);
  pieChartScreen.add(backwardsButton);
  searchBarScreen.add(backwardsButton);
  busiestDestinationScreen.add(backwardsButton);
+ busiestAirportScreen.add(backwardsButton);
  currentScreen = mainScreen;
+ 
  
  PieChart = new pieChart();
  total = dataFile.getRowCount();
@@ -69,6 +79,8 @@ void setup() {
  
  TB = new Textbox(540,  325,  35,  200);
  //textboxes.add(TB);
+
+// DataPoint longestDelay = findLongestDelay(values);
 }
 
 void draw(){
@@ -89,9 +101,10 @@ void draw(){
   }
   
 
-  if (currentScreen == pieChartScreen || currentScreen == busiestDestinationScreen){
+  if (currentScreen == pieChartScreen || currentScreen == busiestDestinationScreen ||currentScreen == busiestAirportScreen
+  ||currentScreen == searchBarScreen) {
 
-  image(img, 0, 0);
+    image(img, 0, 0);
   }
 
   /*for (Textbox t : textboxes) {
@@ -100,23 +113,51 @@ void draw(){
 
   if (currentScreen == searchBarScreen) {
     textSize(25);
-     //widgetList.add(backwardsButton);
     fill(255);
     myFont = loadFont("Rockwell-40.vlw");
     textFont(myFont);
     text("Search Bar", 540, 140);
     TB.draw();
+    
+   if (currentScreen == busiestAirportScreen) {
+     ////////////////////////////////// BAR CHART
+   }
+    
   }
   
   busiestRoutes();
-  if (TB.Text.equals("Longest Delay")) {
-    text(longestDelayInfo, 500, 500);
+  
+if (currentScreen == searchBarScreen) {
+  textSize(25);
+  fill(255);
+  myFont = loadFont("Rockwell-40.vlw");
+  textFont(myFont);
+  text("Search Bar", 540, 140);
+  TB.draw();
+
+  if (longestDelayBool) {
+    fill(255);
+    
+    myFont = loadFont("Rockwell-40.vlw");
+    
+    if (TB.Text.equals("Longest Delay")) {
+      textSize(25);
+      fill(0);
+      rect(400, 400, 500, 200);
+      fill(255);
+      textFont(myFont);
+      textSize(25);
+      text(longestDelayInfo, 500, 500);
+    }
   }
+}
+
 }
 
 
 
 void mousePressed() {
+   //scrollingList.mousePressed();
   switch(currentScreen.getEvent(mouseX, mouseY)) {
   case EVENT_BUTTON1:
     println("Busiest Destinations!"); 
@@ -130,6 +171,10 @@ void mousePressed() {
     println("Flight Status");
     currentScreen = pieChartScreen;
     break;
+  case EVENT_BUTTONBUSIESTAIRPORT:
+    println("Busiest Airport");
+    currentScreen = busiestAirportScreen;
+    break;
   case EVENT_BACKWARD:
     println("Backward");
     currentScreen = mainScreen;
@@ -141,6 +186,7 @@ void mousePressed() {
    }*/
 
   TB.pressed(mouseX, mouseY);
+  
 }
 
 
@@ -203,7 +249,7 @@ DataPoint findLongestDelay(ArrayList<DataPoint> flights) {
         longestDelayFlight = flight;
       }
     } catch (NumberFormatException e) {
-      println("NumberFormatException occurred: " + e.getMessage());
+      println("");
     }
   }
 
@@ -212,18 +258,22 @@ DataPoint findLongestDelay(ArrayList<DataPoint> flights) {
  
 void keyPressed() {
   if (keyCode == ENTER) {
+    // Basic Functionality for Search Bar
     println(TB.Text);
     TB.selected = false;
-    
- if (TB.Text.equals("Longest Delay")) {
-  DataPoint longestDelay = findLongestDelay(values);
-  if (longestDelay != null) {
-    longestDelayInfo = "Date: " + longestDelay.FL_DATE + "\n" +
-                       longestDelay.MKT_CARRIER + "\n" +
-                       "Overall Delay: " + (Integer.parseInt(longestDelay.DEP_TIME) - Integer.parseInt(longestDelay.CRS_DEP_TIME) +
-                                           Integer.parseInt(longestDelay.ARR_TIME) - Integer.parseInt(longestDelay.CRS_ARR_TIME)) + " minutes";
-  }
-}
+    String searchText = TB.Text;
+
+    // Functionality for Longest Delay
+    if (TB.Text.equalsIgnoreCase("Longest Delay")) {
+      DataPoint longestDelay = findLongestDelay(values);
+      if (longestDelay != null) {
+        longestDelayInfo = "Date: " + longestDelay.FL_DATE + "\n" +
+                           longestDelay.MKT_CARRIER + "\n" +
+                           "Overall Delay: " + (Integer.parseInt(longestDelay.DEP_TIME) - Integer.parseInt(longestDelay.CRS_DEP_TIME) +
+                                               Integer.parseInt(longestDelay.ARR_TIME) - Integer.parseInt(longestDelay.CRS_ARR_TIME)) + " minutes";
+        longestDelayBool = true;
+      }
+    }
   }
   TB.KeyPressed(key, keyCode);
 }
@@ -270,10 +320,14 @@ void keyPressed() {
       }*/
       if(currentScreen == busiestDestinationScreen)
       {
-        PFont myFont = loadFont("AmericanTypewriter-12.vlw");
+        PFont myFont = loadFont("Rockwell-40.vlw");
         textFont(myFont);
-        text("Busiest Destination: " + maxStr, 400, 10+50);
-        text("Amount of flights: " + maxValue, 400, 10+100);
+        textSize(25);
+        text("Busiest Destination: " + maxStr, 400, 200+50);
+        text("Amount of flights: " + maxValue, 400, 200+75);
       }
- 
-}
+   } 
+      
+      
+      
+  

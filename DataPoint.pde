@@ -31,7 +31,7 @@ class DataPoint{
     DEST_CITY_NAME = row.getString(8);
     DEST_STATE_ABR = row.getString(9);
     DEST_WAC = row.getString(10);
-    CRS_DEP_TIME = row.getString( 11);
+    CRS_DEP_TIME = row.getString(11);
     DEP_TIME = row.getString(12);
     CRS_ARR_TIME = row.getString(13);
     ARR_TIME = row.getString(14);
