@@ -246,12 +246,11 @@
       text("State Name", 660, 700);
       rect(120, 670, 4, -500);
       
-      pushMatrix();
+      pushMatrix(); 
         float angle1 = radians(-90);
-        
         translate(50, 400);
         rotate(angle1);
-        text("Amount of Late Flights", 0, 0);
+        text("Number of Late Flights", 0, 0);
       popMatrix();
       
       pushMatrix();
@@ -308,7 +307,7 @@
         float angle1 = radians(-90);
         translate(50, 400);
         rotate(angle1);
-        text("Amount of Flights", 0, 0);
+        text("Number of Flights", 0, 0);
       popMatrix();
       
       pushMatrix();
