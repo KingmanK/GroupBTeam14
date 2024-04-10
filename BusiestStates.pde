@@ -1,8 +1,8 @@
-class BusiestAirports {
+class BusiestStates {
   Table data;
   HashMap<String, Integer> airportCounts;
 
-  BusiestAirports(Table data) {
+  BusiestStates(Table data) {
     this.data = data;
     airportCounts = new HashMap<>();
     calculateAirportCounts();
@@ -10,11 +10,12 @@ class BusiestAirports {
 
   void calculateAirportCounts() {
     for (TableRow row : data.rows()) {
-      String lateFlights = row.getString(16);
-      String name = row.getString(8);
       
-      updateAirportCount(name);
-      updateAirportCount(lateFlights);
+      String DEST_STATE_ABR = row.getString(5);
+      String ORIGIN_STATE_ABR = row.getString(9);
+
+      updateAirportCount(ORIGIN_STATE_ABR);              
+      updateAirportCount(DEST_STATE_ABR);
       
     }
   }
@@ -22,6 +23,7 @@ class BusiestAirports {
   void updateAirportCount(String airport) {
     if (airportCounts.containsKey(airport)) {
       int count = airportCounts.get(airport);
+      println(count);
       airportCounts.put(airport, count + 1);
     } else {
       airportCounts.put(airport, 1);

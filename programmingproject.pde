@@ -12,9 +12,9 @@
   Table dataFile;
   PImage img;
   
-  pieChart PieChart;
-  BusiestAirports busiestAirports;
-  
+  PieChart pieChart;
+  LateFlights lateFlights;
+  BusiestStates busiestStates;
   int total;
   ArrayList<String> displayData;
   ArrayList<Widget> widgetList = new ArrayList<Widget>();
@@ -23,101 +23,87 @@
   final int EVENT_FORWARD=2;
   final int EVENT_BUTTON2=3;
   final int EVENT_BACKWARD=4;
-  final int EVENT_BUTTONBUSIESTAIRPORT=5;
+  final int EVENT_BUTTONLATEFLIGHT=5;
+  final int EVENT_BUTTONBUSIESTSTATE=6;
   final int EVENT_NULL=0;
-  Screen currentScreen, mainScreen, pieChartScreen, busiestDestinationScreen, searchBarScreen, busiestAirportScreen;
+  Screen currentScreen, mainScreen, pieChartScreen, busiestDestinationScreen, 
+  searchBarScreen, lateFlightScreen, busiestStateScreen;
   Textbox TB;
   ArrayList<DataPoint> values = new ArrayList<DataPoint>();
   
   void setup() {
-   size(1280, 720);
-    
-   dataFile = loadTable("flights2k.csv");
-   fileReader(dataFile);
-   
-   img = loadImage("backarrow.png");
-
-   textAlign(LEFT);
-   Widget busiestDestinations, flightStatus, searchBar, backwardsButton, busiestAirport;
-   PFont myFont = loadFont("AmericanTypewriter-12.vlw");
-   PFont mainFont = loadFont("Arial-Black-80.vlw");
-   busiestDestinations=new Widget(5, 5, 630, 350,
-   "Busiest City", color(240, 120, 120), stdFont, EVENT_BUTTON1, true);
-   flightStatus=new Widget(645, 5, 630, 350,
-   "Flight Status", color(120, 240, 120), stdFont, EVENT_FORWARD, true);
-   searchBar=new Widget(5, 365, 630, 350,
-   "Search Bar", color(120, 120, 240), stdFont, EVENT_BUTTON2, true);
-   backwardsButton=new Widget(0, 0, 53, 27,
-   "", color(0, 200, 200), stdFont, EVENT_BACKWARD, true);
-   busiestAirport = new Widget(645, 365, 630, 350,
-   "Busiest States", color(250, 240, 120), stdFont, EVENT_BUTTONBUSIESTAIRPORT, true);
-  
-   widgetList.add(busiestDestinations);
-   widgetList.add(flightStatus);
-   widgetList.add(busiestAirport);
-
-   mainScreen = new Screen(color(150));
-   pieChartScreen = new Screen(color(150));
-   busiestDestinationScreen = new Screen(color(150));
-   searchBarScreen = new Screen(color(150));
-   busiestAirportScreen = new Screen(color(150));
-  
-   mainScreen.add(busiestDestinations);
-   mainScreen.add(flightStatus);
-   mainScreen.add(searchBar);
-   mainScreen.add(busiestAirport);
-   pieChartScreen.add(backwardsButton);
-   searchBarScreen.add(backwardsButton);
-   busiestDestinationScreen.add(backwardsButton);
-   busiestAirportScreen.add(backwardsButton);
-   currentScreen = mainScreen;
-
-   PieChart = new pieChart();
-   total = dataFile.getRowCount();
-   noStroke();
-   PieChart.getData();
-
-   TB = new Textbox(540,  325,  35,  200);
-   //textboxes.add(TB);
-  
-  // DataPoint longestDelay = findLongestDelay(values);
+    size(1280, 720);
+    dataFile = loadTable("flights2k.csv");
+    fileReader(dataFile);
+    img = loadImage("backarrow.png");
+    textAlign(LEFT);
+    Widget busiestDestinations, flightStatus, searchBar, backwardsButton, lateFlight, busiestState;
+    PFont myFont = loadFont("AmericanTypewriter-12.vlw");
+    PFont mainFont = loadFont("Arial-Black-80.vlw");
+    busiestDestinations=new Widget(5, 5, 630, 233,
+    "Busiest City", color(240, 120, 120), stdFont, EVENT_BUTTON1, true);
+    flightStatus=new Widget(645, 5, 630, 233,
+    "Flight Status", color(180, 60, 240), stdFont, EVENT_FORWARD, true);
+    searchBar=new Widget(5, 243, 630, 233,
+    "Search Bar", color(250, 190, 0), stdFont, EVENT_BUTTON2, true);
+    backwardsButton=new Widget(0, 0, 53, 27,
+    "", color(0, 200, 200), stdFont, EVENT_BACKWARD, true);
+    lateFlight = new Widget(645, 243, 630, 233,
+    "Late Flights", color(120, 120, 240), stdFont, EVENT_BUTTONLATEFLIGHT, true);
+    busiestState = new Widget(5, 482, 630, 233,
+    "Busiest States", color(250, 240, 120), stdFont, EVENT_BUTTONBUSIESTSTATE, true);
+    //Date range button color (green): 120, 240, 120
+    widgetList.add(busiestDestinations);
+    widgetList.add(flightStatus);
+    widgetList.add(lateFlight);
+    widgetList.add(busiestState);
+    mainScreen = new Screen(color(150));
+    pieChartScreen = new Screen(color(150));
+    busiestDestinationScreen = new Screen(color(150));
+    searchBarScreen = new Screen(color(150));
+    lateFlightScreen = new Screen(color(150));
+    busiestStateScreen = new Screen(color(150));
+    mainScreen.add(busiestDestinations);
+    mainScreen.add(flightStatus);
+    mainScreen.add(searchBar);
+    mainScreen.add(lateFlight);
+    mainScreen.add(busiestState);
+    pieChartScreen.add(backwardsButton);
+    searchBarScreen.add(backwardsButton);
+    busiestDestinationScreen.add(backwardsButton);
+    lateFlightScreen.add(backwardsButton);
+    busiestStateScreen.add(backwardsButton);
+    currentScreen = mainScreen;
+    pieChart = new PieChart();
+    total = dataFile.getRowCount();
+    noStroke();
+    pieChart.getData();
+    TB = new Textbox(540,  325,  35,  200);
     Table data = loadTable("flights2k.csv", "header");
-    busiestAirports = new BusiestAirports(data);
+    lateFlights = new LateFlights(data);
+    busiestStates = new BusiestStates(data);
   }
   
   void draw(){
-     background(0);
+    background(0);
     PFont myFont = loadFont("Arial-Black-70.vlw");
-    
     textFont(myFont);
-    //textAlign(CENTER + 100);
     int margin = 0;
     for (int i = 0; i < displayData.size(); i++) {
       text(displayData.get(i), 20, 20 + margin);
-      //println(displayData.get(i));
       margin += 20;
     }
-  
     currentScreen.draw();
     if (currentScreen == mainScreen) {
-      
-     // myFont = loadFont("Arial-Black-70.vlw");
-     // textAlign(LEFT);
-      //textFont(myFont);
+    // Empty as not needed at the moment
     }
     if (currentScreen == pieChartScreen) {
-      PieChart.draw();
+      pieChart.draw();
     }
-    if (currentScreen == pieChartScreen || currentScreen == busiestDestinationScreen ||currentScreen == busiestAirportScreen
-    ||currentScreen == searchBarScreen) {
-  
-      image(img, 0, 0);
+    if (currentScreen == pieChartScreen || currentScreen == busiestDestinationScreen 
+    || currentScreen == lateFlightScreen ||currentScreen == searchBarScreen || currentScreen == busiestStateScreen) {
+      image(img, 0, 0); // Image for backspace
     }
-  
-    /*for (Textbox t : textboxes) {
-     t.DRAW();
-     }*/
-  
     if (currentScreen == searchBarScreen) {
       textSize(25);
       fill(255);
@@ -127,80 +113,116 @@
       text("Search Bar", 540, 140);
       TB.draw();
     }  
-     if (currentScreen == busiestAirportScreen) {
-       ////////////////////////////////// BAR CHART
-      HashMap<String, Integer> airportCounts = busiestAirports.airportCounts;
-  
+    if (currentScreen == lateFlightScreen) {
+    // Logic for getting data to bar chart
+      HashMap<String, Integer> airportCounts = lateFlights.airportCounts;
       int barWidth = (int)( width / airportCounts.size() / 1.15);
       int maxCount = 0;
-  
       for (int count : airportCounts.values()) {
         if (count > maxCount) {
           maxCount = count;
         }
       }
-  
       int x = 120;
       for (String airport : airportCounts.keySet()) {
         int count = airportCounts.get(airport);
         int barHeight = (int) map(count, 0, maxCount, 0, height/1.55);
         PFont font = loadFont("Rockwell-15.vlw");
-        textFont(font);
-        
+        textFont(font); 
         fill(0, 150, 150);
         noStroke();
         rect(x, height - barHeight - 50, barWidth, barHeight);
-  
         fill(0);
         textAlign(CENTER);
         text(airport, x + barWidth / 2, height - 4  - 50);
-        
         x += barWidth;
       }
-      
       myFont = loadFont("Rockwell-40.vlw"); 
       textFont(myFont);
       textSize(60);
-      text("Amount of Flights per State (Arr. & Dep.)", 660, 100);
-      
+      text("Late Flights", 660, 100);
       textSize(30);
-      text("Airport Name", 660, 700);
-    
-      
+      text("State Name", 660, 700);
+      rect(120, 670, 4, -500);
       pushMatrix();
       float angle1 = radians(-90);
-      translate(100, 330);
+      translate(50, 400);
+      rotate(angle1);
+      text("Amount of Late Flights", 0, 0);
+      popMatrix();
+      pushMatrix();
+      for (int count = 0; count < 12 + 1; count++ ) {
+        text(count, 95, 670 - 40 * count);
+      }
+      popMatrix();
+      textAlign(LEFT);      
+    }  
+    if (currentScreen == busiestStateScreen) {
+    // Logic for getting data to bar chart
+      HashMap<String, Integer> airportCounts = busiestStates.airportCounts;
+      int barWidth = (int)( width / airportCounts.size() / 1.15);
+      int maxCount = 0;
+      for (int count : airportCounts.values()) {
+        if (count > maxCount) {
+          maxCount = count;
+        }
+      }
+      int x = 120;
+      for (String airport : airportCounts.keySet()) {
+        int count = airportCounts.get(airport);
+        int barHeight = (int) map(count, 0, maxCount, 0, height/1.55);
+        PFont font = loadFont("Rockwell-15.vlw");
+        textFont(font); 
+        fill(0, 150, 150);
+        noStroke();
+        rect(x, height - barHeight - 50, barWidth, barHeight);
+        fill(0);
+        textAlign(CENTER);
+        text(airport, x + barWidth / 2, height - 4  - 50);
+        x += barWidth;
+      }
+      myFont = loadFont("Rockwell-40.vlw"); 
+      textFont(myFont);
+      textSize(60);
+      text("Busiest States", 660, 100);
+      textSize(30);
+      text("State Name", 660, 700);
+      rect(120, 670, 4, -500);
+      pushMatrix();
+      float angle1 = radians(-90);
+      translate(50, 400);
       rotate(angle1);
       text("Amount of Flights", 0, 0);
       popMatrix();
-      textAlign(LEFT);
-     
+      pushMatrix();
+      for (int count = 0; count < 12 + 1; count++ ) {
+        text(count*48, 95, 670 - 40 * count);
+      }
+      popMatrix();
+      textAlign(LEFT);      
     }  
-  busiestRoutes();  
-if (currentScreen == searchBarScreen) {
-  textSize(25);
-  fill(255);
-  myFont = loadFont("Rockwell-40.vlw");
-  textFont(myFont);
-  text("Search Bar", 540, 140);
-  TB.draw();
-
-  if (longestDelayBool) {
-    fill(255);
-    
-    myFont = loadFont("Rockwell-40.vlw");
-    
-    if (TB.Text.equals("Longest Delay")) {
+    busiestRoutes();  
+    if (currentScreen == searchBarScreen) {
       textSize(25);
-      fill(0);
-      rect(400, 400, 500, 200);
       fill(255);
+      myFont = loadFont("Rockwell-40.vlw");
       textFont(myFont);
-      textSize(25);
-      text(longestDelayInfo, 500, 500);
+      text("Search Bar", 540, 140);
+      TB.draw();
+    if (longestDelayBool) {
+      fill(255);
+      myFont = loadFont("Rockwell-40.vlw");
+      if (TB.Text.equals("Longest Delay")) {
+        textSize(25);
+        fill(0);
+        rect(400, 400, 500, 200);
+        fill(255);
+        textFont(myFont);
+        textSize(25);
+        text(longestDelayInfo, 500, 500);
+      }
     }
-  }
-}  
+  }  
 }
 void mousePressed() {
    //scrollingList.mousePressed();
@@ -217,20 +239,19 @@ void mousePressed() {
     println("Flight Status");
     currentScreen = pieChartScreen;
     break;
-  case EVENT_BUTTONBUSIESTAIRPORT:
-    println("Busiest Airport");
-    currentScreen = busiestAirportScreen;
+  case EVENT_BUTTONLATEFLIGHT:
+    println("Late Flights");
+    currentScreen = lateFlightScreen;
+    break;
+  case EVENT_BUTTONBUSIESTSTATE:
+    println("Busiest States");
+    currentScreen = busiestStateScreen;
     break;
   case EVENT_BACKWARD:
     println("Backward");
     currentScreen = mainScreen;
     break;
   }
-
-  /* for (Textbox t : textboxes) {
-   t.pressed(mouseX, mouseY);
-   }*/
-
   TB.pressed(mouseX, mouseY);
   
 }
@@ -322,8 +343,6 @@ void keyPressed() {
    void busiestRoutes() {
     String[] destCityArr = new String[values.size()];
       for (int count = 0; count < values.size(); count++) {
-            //fill(255);
-            //text(values.get(count).DEST_CITY_NAME, 10, 10*count);
             destCityArr[count] = values.get(count).DEST_CITY_NAME;
       }
       String maxStr = " ";

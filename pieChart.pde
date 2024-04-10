@@ -1,4 +1,4 @@
-class pieChart {
+class PieChart {
   int diverted = 0;
   int cancelled = 0;
   int onTime = 0;
