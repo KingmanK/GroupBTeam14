@@ -86,7 +86,7 @@
   }
   
   void draw(){
-     background(0);
+    background(0);
     PFont myFont = loadFont("Arial-Black-70.vlw");
     
     textFont(myFont);
