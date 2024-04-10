@@ -578,10 +578,12 @@ void findBusiestCity() {
     PFont myFont = loadFont("Rockwell-40.vlw");
     textFont(myFont);
     
+    textSize(40);
+    text("Busiest Destinations", 455, 150);
     textSize(25);
     
-    text("Busiest City: " + maxStr, 400, 200+50);
-    text("Number of Flights: " + maxValue, 400, 200+75);
+    text("Busiest City: " + maxStr, 490, 200+50);
+    text("Number of Flights: " + maxValue, 490, 200+75);
 } 
 
 //Finds the number of flights within the range of two given dates
